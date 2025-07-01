@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dorf Example E.760 using TF model (hard disk)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>4.3. Dorf Example E.760 using TF model (hard disk)</h2>
+
+    <p>The task that will be the subject of the analysis below is presented as example E.760 on page 481 in the textbook Modern Control Systems, by Richard C. Dorf and Robert H. Bishop.</p>
+
+    <p>This example considers the application of a PID controller to achieve a desired dynamic system response, utilizing velocity feedback to enhance control performance.</p>
+
+    <h3>Task Overview</h3>
+    <p>The assignment pertains to modeling a disk head positioning control system using a PD controller. The system represents a classic example of a closed-loop control system with negative feedback, aiming for precise control of the head's position based on a reference signal.</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective of this assignment is to analyze the behavior of the control system in the presence of a reference signal and disturbances, and to determine how adjusting the parameters of the PD controller affects: the system's response speed, stability, precision in tracking the reference signal, and the ability to suppress the influence of disturbances. This type of model and analysis is essential in the design of precise control systems within mechatronics and automation.</p>
+
+    <h3>Program Analysis:</h3>  
+    <p>Definition of the model under consideration:</p>
+
+    <div class="code-block">
+      	Model [type=DAE domain=real method=RK4 name="Dorf Example 7.60 page 481"]:
+    </div>
+        <p><strong>type</strong> = ”DAE” – the system utilizes differential-algebraic equations.</p>
+        <p><strong>name</strong> = ”Dorf Example 7.60 page 481” – model's name</p>
+        <p><strong>domain</strong> = ”real” – defines that all variables and parameters are in the real domain.</p>
+        <p><strong>method</strong> = ”RK4” – the fourth-order Runge-Kutta method is employed for solving.</p>
+
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+       Vars:
+            err [out=true]
+            yc
+            ym
+            ul
+            y [out=true]
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:
+            u=1 [out=true]
+            Kp=500
+            Kd=191.3
+            Td=0		// disturbance 
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1</a>.</p>
+
+
+    <p>Block <strong>TFs</strong>:</p>
+    
+    <div class="code-block">
+        TFs:
+            yc/err=Kp+Kd*s		// PD controller 
+            ym/yc=5000/(s+1000)		// Motor coil 
+            y/ul=1/(s^2+20*s)		// Load 
+    </div>
+
+    <p>The function of the <i>TFs</i> block is explained in <a href="pendulum-dae-tf.html">examples 5</a>.</p>
+
+    <p>Block <strong>NLEs</strong>:</p>
+    <div class="code-block">
+       NLEs:
+            err=u-y		// negative feedback 
+            ul=ym-Td		// Input to load (output from motor minus disturbance)
+    </div>
+
+    <p>The function of the <i>NLEs</i> block is explained in <a href="nonlinear-complex.html">examples 2</a>.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+    <p>After execution, a window will open, as shown in  picture 4.3.1 displaying information on whether the simulation 
+        successfully completed. If all steps were performed without errors, the status will be marked as successful.</p>
+        
+    <div class="figure">
+        <img src="img/z53.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 4.3.1: Code execution status information</div>
+    </div>
+
+
+    <p>Figure 4.3.2 displays the interface where you input the code for visualizing results. Here, you can define which variables you wish to display.</p>
+
+    <div class="figure">
+        <img src="img/z56.jpg" alt="Figure 1.2">
+        <div class="caption">Figure 4.3.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>After the code is entered, a graphical representation, as shown in figure 4.3.3  is generated. Each line on the graph displays a different physical quantity: the red line represents the change in the reference value over time, the green line shows the error between the reference and output values, and the purple line indicates the temporal change in the output value.</p>
+
+    <div class="figure">
+        <img src="img/z55.jpg" alt="Figure 1.3">
+        <div class="caption">Figure 4.3.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>Finally, figure 4.3.4  presents a tabular display of the numerical values obtained during the simulation. This data can be utilized for further analysis, comparison, or drawing conclusions regarding the system's behavior.</p>
+
+
+    <div class="figure">
+        <img src="img/z54.jpg" alt="Figure 1.4">
+        <div class="caption">Figure 4.3.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

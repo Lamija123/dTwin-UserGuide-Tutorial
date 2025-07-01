@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pendulum Model Described by Differential-Algebraic Equations and Transfer Functions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>1.5. Pendulum Model Described by Differential-Algebraic Equations and Transfer Functions</h2>
+
+    <h3>Task Overview</h3>
+    <p>This task involves modeling the motion of a mathematical pendulum using both system transfer
+        functions and a set of differential-algebraic equations (DAE). The simulation includes changes in the
+        position and velocity of a body attached to an inextensible string of constant length, with the option
+        to introduce motion resistance.</p>
+
+    <h3>Task objective:</h3>
+    <p>TThe objective is to analyze the dynamic behavior of the pendulum by tracking changes in its position,
+        velocity, and tension force over time.</p>
+
+    <h3>Program Analysis:</h3> 
+    <p>Definition of the model under consideration:</p>
+
+    <div class="code-block">
+       Model [type=DAE domain=real method=Trapezoidal name="PendulumModelUsingDAE"]:
+    </div>
+        <p><strong>type</strong> = "DAE" – the system utilizes differential-algebraic equations (DAE).</p>
+        <p><strong>name</strong> = "PendulumModelUsingDAE" – the model’s designated name.</p>
+        <p><strong>domain</strong> = "real" – specifies that all variables and parameters belong to the real domain.</p>
+        <p><strong>method</strong> = "Trapezoidal" – specifies the numerical integration method, in this case the trapezoidal method.</p>
+       
+
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+        Vars [out=true]:
+            x=0.6		// Variable name and initial value (optional) 
+            v_x=0		// Variable name and initial value (optional) 
+            y=sqrt(l^2-x^2)		// "0.998749218"  Variable name and initial value (optional) 
+            v_y=0		// Variable name and initial value (optional) 
+            F=m*g*y/l		// "9.6" Variable name and initial value (optional) 
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:		// default integration step 
+            l=1		// Parameter name and its value 
+            m=1		// Parameter name and its value 
+            g=9.81		// Parameter name and its value 
+            k=0		// koeficijent otpora zraka 
+            v [out=true]
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1</a>.</p>
+
+    <p>Block <strong>TFs</strong>:</p>
+    
+    <div class="code-block">
+        TFs:
+            x/v_x=1/s		// First Transfer Function (speed along x-axis)
+            y/v_y=1/s		// Second Transfer Function  (speed along y-axis)
+    </div>
+
+
+    <p>This block is used to describe the system dynamics in the form of transfer functions within the
+        Laplace domain, specifically using the operator s.</p>
+
+
+    <p>Block <strong>ODEs</strong>:</p>
+    <div class="code-block">
+        ODEs:
+            v_x'=-F*x/(m*l)-k*v_x/m		// Third state variable
+            v_y'=g-F*y/(m*l)-k*v_y/m		// 4th state variable
+    </div>
+
+    <p>Block <strong>NLEs</strong>:</p>
+    <div class="code-block">
+        NLEs:
+	        x^2+y^2=l^2		// First nonlinear equation of the model 
+    </div>
+
+    <p>The functions of the <i>NLEs</i> and <i>ODEs</i> blocks were explained in <a href="nonlinear-complex.html">examples 2</a> and <a href="pendulum-ode.html">examples 3</a>, respectively.
+        Here, differential and algebraic nonlinear equations describing the analyzed system are entered.</p>
+
+    <p>Block <strong>PostProc</strong>:</p>
+    <div class="code-block">
+       PostProc:
+	        	v= v_x^2 + v_y^2
+    </div>
+
+    <p>This block enables post-processing calculations of quantities, in this case the system’s velocity.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+
+    <p><i>The <a href="pendulum-dae.html">previous</a> and current models primarily differ in the numerical integration methods used and
+        the way the system’s motion is modeled. The trapezoidal approach offers higher accuracy and stabi-
+        lity, whereas the Runge-Kutta method enables faster, though somewhat less stable, simulations. The
+        choice of method depends on the required precision and complexity of the system being modeled.</i></p>
+
+    <p>The results of the executed program are presented below. </p>
+        
+    <p>Figure 1.5.1  shows a window providing feedback on whether the simulation was successfully com-
+        pleted or encountered errors.</p>
+
+    <div class="figure">
+        <img src="img/z15.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 1.5.1: Code execution status information</div>
+    </div>
+
+
+    <p>Figure 1.5.2 presents the interface window designed for entering code intended for result visualization.</p>
+
+    <div class="figure">
+        <img src="img/z14.jpg" alt="Figure 1.2" width="800" height="400">
+        <div class="caption">Figure 1.5.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>The graphical representation of the analyzed program execution is shown in picture 1.5.3. The
+        red line indicates the dependence of the x-coordinate on time, while the green line represents the
+        y-coordinate’s variation over time. The blue line depicts the velocity as a function of time, and the
+        pink line illustrates the variation of the force over time.</p>
+
+    <div class="figure">
+        <img src="img/z13.jpg" alt="Figure 1.3" width="800" height="400">
+        <div class="caption">Figure 1.5.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>Figure 1.5.4 presents the numerical results obtained after program execution.</p>
+
+
+    <div class="figure">
+        <img src="img/z16.jpg" alt="Figure 1.4" width="800" height="400">
+        <div class="caption">Figure 1.5.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

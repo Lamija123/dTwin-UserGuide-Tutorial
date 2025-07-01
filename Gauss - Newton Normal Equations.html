@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>State Estimation (Gauss–Newton Normal Equations)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>5.3. State Estimation (Gauss–Newton Normal Equations)</h2>
+
+    <h3>Task Overview:</h3>
+    <p>
+        This task implements a state estimation algorithm in a power system using the Weighted Least Squares (WLS) method.
+        The system consists of three buses, and the goal is to estimate bus voltage magnitudes and phase angles using
+        available measurements of active/reactive power flows, injections, and voltage magnitudes.
+    </p>
+
+     <h3>Task Objective:</h3>
+    <p>
+        The objective is to perform state estimation in a 3-bus power system by minimizing the weighted sum of squared measurement errors.
+        The estimation is based on measured power flows, injections, and voltages. The WLS algorithm adjusts the state variables to best
+        fit the measurements while accounting for their uncertainty.
+    </p>
+    <h3>Program Analysis:</h3>
+    <p><strong>Model Definition</strong></p>
+    <div class="code-block">
+        Model [type=WLS domain=real name="AburExposito_"]:
+    </div>
+
+    <p>
+        <code>type = "WLS"</code> – the model uses the Weighted Least Squares estimation method<br>
+        <code>domain = "real"</code> – all variables and equations are real-valued<br>
+        <code>name = "AburExposito_"</code> – name of the model referencing the textbook example
+    </p>
+
+    <p><strong>Variables</strong></p>
+
+
+     <div class="code-block">
+        Vars [out=true]:
+            theta_2=0
+            theta_3=0
+            v_1=1
+            v_2=1
+            v_3=1
+    </div>
+    <p>These are the state variables to be estimated. <code>theta_1</code> is the slack angle and fixed at 0.</p>
+
+    <p><strong>Parameters</strong></p>
+
+    <div class="code-block">
+        Params:
+            w_inj = 1/0.01^2
+            w_br = 1/0.008^2
+            w_v = 1/0.004^2
+            theta_1 = 0
+            ...
+            P_12 = 0.888
+            P_13 = 1.173
+            P_2_meas = -0.501
+            Q_12 = 0.568
+            Q_13 = 0.663
+            Q_2_meas = -0.286
+            V_1 = 1.006
+            V_2 = 0.968
+    </div>
+
+    <p>This block contains:</p>
+    <ul>
+        <li>Measurement weights: <code>w_inj</code>, <code>w_br</code>, <code>w_v</code></li>
+        <li>Measurement values: power flows and voltages</li>
+    </ul>
+
+    <p><strong>WLSEs Block (Weighted Equations)</strong></p>
+
+    <div class="code-block">
+        WLSEs:
+            [w=w_br] v_1^2*g_12 - v_1*v_2*(g_12*cos(...) + b_12*sin(...)) = P_12
+            ...
+            [w=w_v] v_1 = V_1
+            [w=w_v] v_2 = V_2
+    </div>
+
+    <p>Each equation has an associated weight that reflects its measurement reliability.</p>
+
+
+    <h3>Conclusion:</h3>
+    <p>
+        The WLS model provides a robust framework for state estimation by integrating different types of measurements with varying levels
+        of accuracy. It gives a realistic insight into the network's operational state and can be used for diagnostics, control, and real-time monitoring.
+    </p>
+
+   
+
+</body>
+</html>

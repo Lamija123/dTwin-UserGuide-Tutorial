@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nonlinear Equations in the Real Domain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>1.1 Nonlinear Equations in the Real Domain</h2>
+
+    <h3>Task Overview: </h3>
+        
+    <p>The objective is to solve a nonlinear system of equations in the real domain 
+    using dTwin, where variable and parameter names include Unicode characters.</p>
+
+    <h3>Task objective:</h3>
+    <p>The goal is to solve a system of two nonlinear equations with two unknowns using the Newton-Raphson method.</p>
+
+    <h3>Program Analysis:</h3> 
+    <p>The first step is to define the target model.</p>
+    <p>Code Line:</p>
+
+    <div class="code-block">
+        Model [type = NL, name = "NL with Fn", domain=real, eps=1e-6, method=NR]:
+    </div>
+
+    <p>represents the beginning of the model definition within the dTwin environment. It specifies the fun-
+    damental properties of the model to be solved:</p>
+        <p><strong>Model</strong> – a keyword that marks the start of the model definition.</p>
+        <p><strong>type</strong> = "NL" – defines the model as nonlinear (NL = Nonlinear).</p>
+        <p><strong>name</strong> = "NL with Fn" – a user-defined model name.</p>
+        <p><strong>domain</strong> = "real" – specifies that all variables and parameters are within the real number domain.</p>
+        <p><strong>eps</strong> = 1e−6 – sets the desired solution accuracy.</p>
+        <p><strong>method</strong> = "NR" – indicates that the Newton-Raphson method is used to solve the system.</p>
+
+    <p>The next code block is <strong>Vars</strong>:</p>
+    <div class="code-block">
+        Block Vars [out = true]:
+            x = 1
+            y = 1
+    </div>
+
+    <p>This block defines the model variables, representing the unknowns to be computed numerically.</p>
+    <p>The keyword Vars denotes the beginning of the variable list. The optional attribute [out = true] specifies whether these variables will be displayed in the simulation results.
+        Variables x and y are initialized to the value 1, serving as initial approximations for the iterative algorithm.</p>
+
+    <p>The following block <strong>Params</strong> defines the model parameters, representing constants used in the equation formulations whose values remain fixed throughout the simulation.</p>
+    <div class="code-block">
+        Params:
+            k = 2
+            m = 0.5
+    </div>
+
+    <p>The <strong>NLEs</strong> block contains the system of nonlinear equations that constitute the mathematical model. 
+        These equations are solved simultaneously using the numerical method specified in the Model block (method = NR).</p>
+
+    <div class="code-block">
+        NLEs:
+            x^x+ln(y)=k*x+n+y*-0.2
+            x^2+y^2=4+0.5*x
+    </div>
+
+    <p>The code following the <strong>PostProc</strong> line is used for post-processing of results, such as calculating additional 
+        expressions based on the solution, generating graphs, etc. In this example, the block is empty, 
+        indicating that no further operations are performed after solving the system. This block can 
+        be valuable for extending the model in more complex tasks.</p>
+
+    <div class="code-block">
+        PostProc:
+    </div>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+    
+        end // end of Model
+    </div>
+
+
+<p> </p>
+
+<p><strong>Solution through the main interface</strong></p>
+
+<p>In the dTwin application, the presentation of results through the main interface consists of three key
+     windows: <strong>Log</strong>, <strong>Info</strong>, and <strong>Rez</strong>, each serving a specific purpose in monitoring the model’s 
+    operation, visualizing data, and analyzing simulation results. Shown in Figure 1.1.1 in the right corner.</p>
+
+    <div class="figure">
+        <img src="img/z0.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 1.1.1: Log, Info, and Rez windows</div>
+    </div>
+
+    <p>The <i>Log</i> window  serves as the primary tool for supervising the model execution process. It displays information to the 
+    user such as the cursor's current location within the code (pointer position), the number of errors identified 
+    during code analysis, the total execution time of the model, and any error messages if applicable. This window is 
+    highly valuable for developers and users who wish to monitor the algorithm's performance in real time and resolve 
+    any potential inconsistencies or syntax errors.</p>
+
+    <p>Moreover, the Log window provides a basic diagnostic overview of the system without the need for external tools, 
+    thereby accelerating the model development and testing process.</p>
+
+    <p>The <i>Info</i> window, shown in Figure 1.1.3, contains a set of important parameters that define the simulation flow and control its execution process. At the top, there is an option to specify 
+        the maximum number of iterations (in this case, 50), as well as the maximum number of repetitions (marked as -1, 
+        which typically indicates that no limit has been set).
+
+    <p>The window also displays the initial simulation time (0.000000 s) and the integration step size (0.001000 s), 
+    which determines the temporal resolution and precision of the simulation. The final time (2.000000 s) defines the 
+    total duration of the simulation in real time.</p>
+
+    <p>One of the useful features includes the ability to save the results to a file, allowing for later analysis and review 
+    of the data. There is also an option to generate a new tab for each new plot, which is particularly helpful for 
+    visualizing and comparing results from different simulations within the same working environment. In essence, the <i>Info window </i>functions as a control panel, from which the user manages core simulation parameters, 
+    defines execution conditions, and monitors the fundamental technical characteristics of the simulation process.</p>
+
+
+    <p>The <i>Rez</i> window provides the final display of data obtained through the execution of the model. As shown 
+        in Figure 1.1.5, this window contains a table with all simulation data, including the iteration number, info
+    and the values of the variables eps, x and y. Each row represents a single simulation point, 
+    and users have the ability to select specific rows, which opens an additional menu with options for data export. 
+    Shown in figure 1.1.2</p>
+
+    <div class="figure">
+        <img src="img/z61.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 1.1.2: XML or HTML export</div>
+    </div>
+
+    <p>The data can be exported in XML or TXT format, which is useful for integration with other software tools, statistical 
+    processing, documentation, or reporting. Additionally, there is a feature for copying selected rows, which facilitates 
+    quick analysis or transfer of specific values to other parts of the application. The <i>Rez</i> window serves as the central point for interpreting simulation results, enabling the user to precisely monitor 
+    how values change over time and to analyze the system's dynamics in relation to time.</p>
+
+    <p><i>Together, these three windows Log, Info, and Rez provide a powerful environment for model development, monitoring, and 
+    analysis within the dTwin platform, seamlessly integrating technical parameters, execution data, and concrete results 
+    into a unified and user-friendly interface.</i></p>
+
+
+<p> </p>
+
+    <p>Upon execution of the provided code, the following results are obtained. </p>
+        
+    <p>Figure 1.1.3 shows a window that informs the user about the execution status of the code—specifically, 
+        whether the code executed successfully or if an error occurred during the process.</p>
+
+    <div class="figure">
+        <img src="img/z1.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 1.1.3: Code execution status information</div>
+    </div>
+
+
+    <p>Figure 1.1.4 depicts the window designated for inputting code to visualize the task results. In this
+    section of the interface, the user can specify which results will be displayed and how they will be
+    presented.</p>
+
+    <div class="figure">
+        <img src="img/z2.jpg" alt="Slika 1.2">
+        <div class="caption">Figure 1.1.4: Interface for entering visualization code</div>
+    </div>
+
+    <p>Picture 1.1.5 shows the graphical result of the executed code from picture 1.1.4. The green line
+    represents the logarithm of the error, the blue line corresponds to the values of the variable x, while
+    the red line shows the values of the variable y.</p>
+
+    <div class="figure">
+        <img src="img/z3.jpg" alt="Slika 1.3" width="500" height="400">
+        <div class="caption">Figura 1.1.5: Graphic display of simulation results</div>
+    </div>
+
+    <p>Figure 1.1.6 displays the numerical results of the program execution, containing the specific values
+    of the variables obtained after the iterative procedure.</p>
+
+
+    <div class="figure">
+        <img src="img/z4.jpg" alt="Slika 1.4">
+        <div class="caption">Figure 1.1.6: Numerical simulation results</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Power flow: 3 nodes, 1PQ and 1 PV gen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>5.9. Power Flow: 3 Nodes, 1PQ and 1 PV gen</h2>
+
+  <h3>Task Overview: </h3>
+  <p>This task investigates power flow in a 3-node network where:</p>
+  <ul>
+    <li>Node 1 is a slack bus.</li>
+    <li>Node 2 hosts a generator in voltage-regulated (PV) mode, subject to reactive power limits.</li>
+    <li>Node 3 is a PQ node with specified power demand S₃ = -2 - j1.</li>
+  </ul>
+  <p>The model is constructed using complex variables and includes logic to disable voltage regulation when the reactive power limits at the generator are violated.</p>
+
+  <h3>Task Objective: </h3>
+  <p>The objective is to determine voltage magnitudes and angles at nodes 2 and 3, while observing the behavior of the PV generator as it either maintains voltage setpoint V₂ = 1.01 or switches to PQ mode based on its reactive power limits.</p>
+
+  <h3>Program Analysis: </h3>
+
+    <div class="code-block">
+      	Model [type=NL domain=cmplx name="PF With Regulating Generator And Its Limits"]:
+    </div>
+
+
+
+ 
+  <p><code>domain = "cmplx"</code> – The system is solved in the complex domain using Newton-Raphson.<br>
+     <code>cGen2Reg = true</code> – A boolean control flag for PV operation on node 2.</p>
+
+  <p><strong>Power Flow Equations</strong></p>
+    <li><strong>Node 2 (PV or PQ mode):</strong>
+      <ul>
+        <li>Active power constraint is always enforced: Re(v₂ ⋅ conjugate(i₂)) = P₂inj</li>
+        <li>If in PV mode: enforce |v₂| = V₂sp</li>
+        <li>Else: enforce Q₂inj = Im(v₂ ⋅ conjugate(i₂))</li>
+      </ul>
+    </li>
+    <li><strong>Node 3:</strong> Fixed PQ load: S₃ = -2 - j1</li>
+  </ul>
+
+  <p><strong>Reactive Power Limit Enforcement</strong></p>
+
+  <div class="code-block">
+      	if Q2_inj &gt; Q2_max or Q2_inj &lt; Q2_min:
+        cGen2Reg := false
+    </div>
+
+  <p>This triggers a switch from PV to PQ mode for the generator.</p>
+
+  <h3>Numerical Results</h3>
+  <div class="figure">
+    <img src="img/k2r2.png" alt="Convergence table with PV to PQ transition">
+     <p class="caption">Figure 5.9.1: Convergence table with PV to PQ transition</p>
+  </div>
+  
+  <p><strong>Observation:</strong></p>
+  <ul>
+    <li>The model converged in 7 iterations.</li>
+    <li>Initially, the generator at node 2 is in PV mode.</li>
+    <li>After 3 iterations, the reactive power limit is exceeded, and the generator switches to PQ mode.</li>
+    <li>Final voltages:
+      <ul>
+        <li>v₂ ≈ -0.454 + j0.898 → |v₂| ≈ 1.003</li>
+        <li>v₃ ≈ -0.386 + j0.883 → |v₃| ≈ 0.961</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Graphical Results</h3>
+  <div class="figure">
+    <img src="img/kz2p2.png" alt="Voltage magnitude evolution (v2, v3) and PV regulation status"width="500" height="400">
+     <p class="caption">Figure 5.9.2: Voltage magnitude evolution (v2, v3) and PV regulation status</p>
+  </div>
+   <div class="figure">
+    <img src="img/kz2p22.png" alt="Phase angle of voltage v3"width="500" height="400">
+     <p class="caption">Figure 5.9.3: Phase angle of voltage v3s</p>
+  </div>
+  
+
+  <h3>Conclusion</h3>
+  <p>This case demonstrates a robust method for simulating power systems with voltage-controlled generators under physical constraints.
+     When the generator at node 2 violates reactive power limits, the model seamlessly transitions to PQ mode and continues to converge.
+     The voltage drop and angle behavior are consistent with increased load at node 3 and the inability of the generator to maintain voltage regulation beyond its reactive power range.</p>
+
+</body>
+</html>

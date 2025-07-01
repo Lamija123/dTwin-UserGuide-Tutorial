@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pendulum Model Described by Differential-Algebraic Equations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>1.4. Pendulum Model Described by Differential-Algebraic Equations</h2>
+
+    <h3>Task Overview</h3>
+    <p>This task involves the modeling and simulation of a physical system representing an ideal mathe-
+        matical pendulum using a differential-algebraic equation (DAE) approach. The model is based on
+        the numerical solution of a system of differential equations describing the translational motion of a
+        mass in two dimensions, coupled with the introduction of a nonlinear constraint ensuring a constant
+        rope length. The simulation graphically and numerically illustrates the temporal changes in position,
+        velocity, and tension force within the system.</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective is to analyze the dynamic behavior of the pendulum in a plane by utilizing a differential-
+        algebraic model.</p>
+
+    <h3>Program Analysis:</h3> 
+    <p>Definition of the model under consideration:</p>
+
+    <div class="code-block">
+       Model [type=DAE domain=real method=RK2 name="PendulumModelUsingDAE"]:
+    </div>
+        <p><strong>type</strong> = "DAE" – the system utilizes differential-algebraic equations (DAE).</p>
+        <p><strong>name</strong> = "PendulumModelUsingDAE" – the model’s designated name.</p>
+        <p><strong>domain</strong> = "real" – specifies that all variables and parameters belong to the real domain.</p>
+        <p><strong>method</strong> = "RK2" – indicates that the second-order Runge-Kutta method is employed for solving the
+                system.</p>
+       
+
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+        Vars [out=true]:		// output all variables for plotting 
+            x=0.6		// Variable name and initial value (optional) 
+            v_x=0		// Variable name and initial value (optional) 
+            y=sqrt(l^2-x^2)		// "0.998749218"  Variable name and initial value (optional) 
+            v_y=0		// Variable name and initial value (optional) 
+            F=m*g*y/l		// "9.6" Variable name and initial value (optional) 
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:		// default integration step 
+            l=1		// Parameter name and its value 
+            m=1		// Parameter name and its value 
+            g=9.81		// Parameter name and its value 
+            k=0		// koeficijent otpora zraka 
+            v=0 [out=true]		// brzina 
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1</a>.</p>
+
+
+
+
+    <p>Block <strong>ODEs</strong>:</p>
+    
+    <div class="code-block">
+        ODEs:
+            x'=v_x		// First state variable
+            v_x'=-F*x/(m*l)-k*v_x/m		// Second state variable
+            y'=v_y		// 3rd state variable
+            v_y'=g-F*y/(m*l)-k*v_y/m		// 4th state variable
+    </div>
+
+    <p>Block <strong>NLEs</strong>:</p>
+    <div class="code-block">
+        NLEs:
+	        x^2+y^2=l^2		// First nonlinear equaiton of the model 
+    </div>
+
+    <p>The functions of the <i>NLEs</i> and <i>ODEs</i> blocks were explained in <a href="nonlinear-complex.html">examples 2</a> and <a href="pendulum-ode.html">examples 3</a>, respectively.
+        Here, differential and algebraic nonlinear equations describing the analyzed system are entered.</p>
+
+    <p>Block <strong>PostProc</strong>:</p>
+    <div class="code-block">
+       PostProc:
+	        v=sqrt(v_x^2+v_y^2)
+    </div>
+
+    <p>This block enables post-processing calculations of quantities, in this case the system’s velocity.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+    <p>After the analyzed code has been successfully executed, the generated results are presented in
+        the following figures. </p>
+        
+    <p>Figure 1.4.1  displays an informational window that provides the user with feedback on the program’s
+        execution status—specifically, whether the simulation process completed without errors or if any
+        issues occurred.</p>
+
+    <div class="figure">
+        <img src="img/z12.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 1.4.1: Code execution status information</div>
+    </div>
+
+
+    <p>Figure 1.4.2 shows a section of the user interface designated for inputting code intended for result
+        visualization. Here, the user defines which variables to display and the format in which they will be
+        presented.</p>
+
+    <div class="figure">
+        <img src="img/z10.jpg" alt="Figure 1.2" width="800" height="400">
+        <div class="caption">Figure 1.4.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>Figure 1.4.3 presents a graphical representation of the simulation results. The blue line illustrates
+        the variation of the x-coordinate over time, the red line depicts the change of the y-coordinate with
+        respect to time, the green line represents the velocity variation over time, and the black line shows
+        the tension force as a function of time.</p>
+
+    <div class="figure">
+        <img src="img/z9.jpg" alt="Figure 1.3" width="800" height="400">
+        <div class="caption">Figure 1.4.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>Figure 1.4.4 presents the numerical results obtained from the simulation execution. The displayed
+        values represent precise numerical data calculated using an iterative method. It is also evident that
+        the simulation was conducted over a total of 3001 time points.</p>
+
+
+    <div class="figure">
+        <img src="img/z11.jpg" alt="Figure 1.4" width="500" height="250">
+        <div class="caption">Figure 1.4.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

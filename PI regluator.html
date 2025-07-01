@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AC Generator with PI Regulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>5.7. AC Generator with PI Regulator</h2>
+
+    <h3>Task Overview: </h3>
+    <p>
+        This task demonstrates frequency regulation in a simple power network that consists of one generator, two busbars,
+        and one consumer load. The model uses a differential-algebraic system (DAE) and includes a PI controller for regulating
+        the frequency by adjusting the mechanical power input to the generator rotor.
+    </p>
+
+    <h3>Task Objective:</h3>
+    <p>
+        Observe how the generator restores system frequency after a sudden load disturbance.
+        The simulation evaluates how the PI control loop returns the frequency to nominal value.
+    </p>
+
+    <h3>Program Analysis:</h3>
+
+    <p><strong>Model Definition</strong></p>
+    <div class="code-block">
+        Model [type=DAE name="Generator with a single node" domain=real method=RK4 eps=1e-5]:	
+    </div>
+
+    <ul>
+        <li><code>type = "DAE"</code> – Differential-Algebraic Equations</li>
+        <li><code>method = "RK4"</code> – 4th-order Runge-Kutta for numerical integration</li>
+        <li><code>eps = 1e-5</code> – Convergence tolerance</li>
+    </ul>
+
+    <p><strong>Model Structure</strong></p>
+    <ul>
+        <li>Variables: δ<sub>g</sub>, ω<sub>g</sub>, v<sub>l</sub>, δ<sub>l</sub>, P<sub>ge</sub>, P<sub>gm</sub>, regI</li>
+        <li>Parameters: admittance (g, b), inertia H = 20, damping D = 0.1, PI gains K<sub>p</sub> = 200, K<sub>i</sub> = 60</li>
+        <li>SubModel: power flow initialization for steady-state values</li>
+        <li>ODEs: rotor angle/frequency dynamics</li>
+        <li>NLEs: power balances and regulator law</li>
+    </ul>
+
+    <p><strong>ODEs Block</strong></p>
+
+     <div class="code-block">
+        ODEs:
+            δ_g' = ω_g
+            ω_g' = (P_gm - P_ge) / (H * ω_g)
+            regI = Ki * ∫(ω_ref - ω_g)
+    </div>
+
+    <p><strong>NLEs Block</strong></p>
+    <ul>
+        <li>Power balance equations at load bus</li>
+        <li>Generated power: P<sub>ge</sub></li>
+        <li>Mechanical input:
+            <code>
+            P<sub>gm</sub> = lim(K<sub>p</sub>(ω<sub>ref</sub> - ω<sub>g</sub>) + regI, P<sub>gm_min</sub>, P<sub>gm_max</sub>)
+            </code>
+        </li>
+    </ul>
+
+    <p><strong>Post-Processing</strong></p>
+    <div class="code-block">
+            PostProc:
+	            f = 50 * ω_g
+    </div>
+
+    <p>This converts per-unit speed to Hz.</p>
+
+    <h3>Graphical Results: </h3>
+
+    <div class="figure">
+        <img src="img/z7p7.png" alt="Frequency response over time" width="500" height="400">
+        <p class="caption">Figure 5.7.1: System frequency response f(t) with operational range</p>
+    </div>
+
+    <p><strong>Observation</strong></p>
+    <ul>
+        <li>Frequency drops to 47.8 Hz after step disturbance (load from –1 to –10 kW)</li>
+        <li>PI regulator restores frequency close to 50 Hz in under 15 seconds</li>
+        <li>Shaded region indicates acceptable operational range (49–51 Hz)</li>
+    </ul>
+
+    <div class="figure">
+        <img src="img/z7p77.png" alt="Mechanical/electrical power and angle responses"width="500" height="400">
+        <p class="caption">Figure 5.7.2: Mechanical and electrical power (P<sub>gm</sub>, P<sub>ge</sub>) and angles</p>
+    </div>
+
+    <p><strong>Observation</strong></p>
+    <ul>
+        <li>P<sub>gm</sub> rises quickly in response to increased load</li>
+        <li>P<sub>ge</sub> follows to deliver electrical power</li>
+        <li>regI (integral term) ramps until stabilization</li>
+        <li>Rotor/load angles show synchronization dynamics</li>
+    </ul>
+
+    <h3>Conclusion: </h3>
+    <p>
+        This simulation confirms that PI control effectively restores frequency after disturbance.
+        The model captures both mechanical and electrical dynamics, showing stable and responsive behavior.
+        Such control is essential for generator-grid synchronization and frequency regulation in isolated systems.
+    </p>
+
+</body>
+</html>

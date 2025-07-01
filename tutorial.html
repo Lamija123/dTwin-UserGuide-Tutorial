@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Početna</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+   <div class="sidebar">
+        <h2>Meni</h2>
+        <a href="index.html">Main</a>
+        <!--<a href="stranica2.html">Stranica 2</a>-->
+        <!--<a href="lamija.html">LAMIJA</a>-->
+        <!--<a href="SET1.html">General (math, physics)</a>-->
+
+          <!-- Dropdown sekcija: General (math, physics) -->
+        <button class="dropdown-btn">General (math, physics) ▼ </button>
+        <div class="dropdown-container">
+            <a href="nonlinear-real.html">Nonlinear Equations in the Real Domain</a>
+            <a href="nonlinear-complex.html">Nonlinear Equations in the Complex Domain</a>
+
+            <a href="pendulum-ode.html">Pendulum Model Described by Ordinary Differential Equations</a>
+            
+            <a href="pendulum-dae.html">Pendulum Model Described by Differential-Algebraic Equations</a>
+            <a href="pendulum-dae-tf.html">Pendulum Model Described by Differential-Algebraic Equations and Transfer Functions</a>
+        </div>
+
+        <button class="dropdown-btn">Mechanical engineering ▼ </button>
+        <div class="dropdown-container">
+            <a href="water-pipe-3nodes.html">Simple water pipe system with 3 nodes</a>
+            <a href="cart-model-nonlinear.html">Cart model (nonlinear)</a>
+            <a href="earthquake-nonlinear.html">Earthquake non-linear model</a>
+            <a href="earthquake-linear.html">Earthquake linearized model</a>
+        </div>
+
+	    <button class="dropdown-btn">Electrical engineering ▼ </button>
+            <div class="dropdown-container">
+                <a href="rlc_step.html">RLC circut with Step Generator</a>
+                <a href="rlc_sine.html">RLC circut with Sine Generator</a>
+            
+            </div>
+        
+        <button class="dropdown-btn">Automation and Control ▼ </button>
+            <div class="dropdown-container">
+                <a href="dorf_e77_pid_tf.html">Dorf Example E7.7 (PID) with Transfer Functions (TF)</a>
+                <a href="dorf_e77_pid_dae_tf.html">Dorf Example E7.7 (PID) with DAE-TF mixture model</a>
+                <a href="dorf_e760_harddisk_tf.html">Dorf Example E.760 using TF model (hard disk)</a>
+                <a href="dorf_e760_tf_limit.html">Dorf Example E.760 using TF model with limit</a>
+            </div>
+                 
+                 <!-- Dropdown sekcija: Power system -->
+        <button class="dropdown-btn">Power system ▼</button>
+        <div class="dropdown-container">
+            <div class="subsection-title">REAL</div>
+            <a href="power-flow-3nodes.html">Power Flow: 3 Nodes and PQ Load</a>
+            <a href="power-flow-pq.html">Power flow: 3 nodes, 1PQ and 1 PV gen</a>
+            <a href="Gauss - Newton Normal Equations.html">State estimation (Gauss - Newton Normal Equations)</a>
+            <a href="equality constraint.html">State estimation with equality constraints</a>
+            <a href="Monte Carlo Loading.html">State estimation (NE) with Monte Carlo Loading</a>
+            <a href="with noise.html">State estimation with noise</a>
+            <a href="PI regluator.html">AC Gen with PI regluator</a>
+
+            <div class="subsection-title">COMPLEX</div>
+            <a href="e1.html">Power flow: 3 nodes and PQ load</a>
+            <a href="e2.html">Power flow: 3 nodes, 1PQ and 1 PV gen</a>
+            <a href="e3.html">Power flow: 3 nodes, transfer capability</a>
+            <a href="e4.html">Coninuation Power Flow (CPF)</a>
+            <a href="e5.html">State estimation with Equality Constraints</a>
+            <a href="e6.html">State estimation with Monte Carlo Loading</a>
+            <a href="e7.html">State estimation with S-V (P-V) curve limit</a>
+        </div>
+    </div>
+   
+
+
+
+
+
+    <div class="tutorial-content">
+         <header>
+            <h1>TUTORIAL</h1>
+        </header>
+        <p>Welcome!</p>
+    <ul>
+        <li>
+            This tutorial aims to provide a clear and practical introduction to working with the dTwin software. By analyzing examples available within the application, users will be introduced to core functionalities, modeling methodologies, and tools for data visualization in dTwin. The tutorial is intended for beginners but can also serve as a useful refresher for users with prior experience in simulation tools.
+        </li>
+        <li>
+            The first set of examples to be examined is titled "General (math, physics)". These examples demonstrate the fundamental capabilities of the dTwin platform and serve as an introduction to its working environment, methods for modeling expressions, physical laws, and essential simulation principles. Through hands-on tasks, users will gain an understanding of key components such as input parameter configuration, the use of mathematical blocks, graphical representation of results, and interpretation of the generated data.
+        </li>
+        <li>
+            This part of the tutorial covers examples from the field of mechanical engineering that demonstrate the use of the dTwin software for modeling and analyzing mechanical systems. The examples range in complexity and approach—from a simple water pipe system with three nodes, through a nonlinear cart model, to seismic models that analyze the impact of earthquakes on structures, both in nonlinear and linearized forms. Each of the models illustrates how the behavior of real physical systems can be described using differential equations, transfer functions, and numerical methods.
+        </li>
+        <li>
+            A set of tasks in electrical engineering presents fundamental examples that focus on the analysis of RLC circuits under various excitation sources. The first task explores the circuit’s time-domain response to a step voltage input, while the second examines its behavior under sinusoidal excitation. These examples serve to enhance the understanding of the basic dynamic properties of RLC circuits and illustrate how different input signals influence the voltage-current relationships over time.
+        </li>
+        <li>
+            This section of the tutorial covers examples from the Automation and Control task group, focusing on the analysis of several classic control engineering problems. Included are: Dorf Example E7.7 (PID) using Transfer Function (TF) models, Dorf Example E7.7 (PID) using a mixed DAE-TF model, Dorf Example E7.60 using a TF model representing a hard disk system, and Dorf Example E7.60 with a TF model incorporating actuator limits. These tasks illustrate different modeling approaches for PID control and highlight how system constraints and model structures influence control performance and system response. All of these examples are drawn from <i>Modern Control Systems</i> by Richard C. Dorf and Robert H. Bishop, and can be found on page 452 of the book.
+        </li>
+         <li>This group of tasks explores key aspects of power system modeling through the combined application of power flow analysis and state estimation techniques. The emphasis is on understanding how electrical networks behave under different operating conditions, especially when exposed to measurement uncertainty, load growth, and generator control limitations. The models are based on real and complex domains, incorporating both deterministic and stochastic formulations. Through state estimation, the internal states of the system—such as voltage magnitudes and phase angles—are reconstructed from incomplete and noisy measurements. Equality constraints are used to enforce physical laws, particularly at zero-injection nodes, ensuring the feasibility of the estimated solutions.</li>
+               
+                
+    </ul>
+    </div>
+
+
+
+
+    <script src="script.js"></script>
+
+
+    
+</body>
+</html>

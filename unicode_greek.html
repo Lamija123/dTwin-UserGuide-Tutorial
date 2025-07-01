@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Description of platform content</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Description of platform content</h2>
+
+  <p>This section provides a demonstration of Unicode support in the dTwin platform, using Greek letters in model definitions as a valid part of variable and parameter names.</p>
+
+  <h3>Unicode Example Model</h3>
+
+  <p>This model example is accessible in dTwin via the path: <strong>Main Menu – Model – Examples – Unicode</strong>.</p>
+
+  <h3>Model Description</h3>
+
+  <p>
+    The model is defined as a nonlinear model (<code>type = NL</code>) operating in the <code>real</code> domain, and is titled <strong>"Greek letters"</strong>.
+    Although the modeling language is English, both variable and parameter names are written using Greek letters, 
+    inserted using syntax e.g. <code>\alpha</code> renders as α.
+    This illustrates the platform’s support for Unicode symbols in names, 
+    allowing more intuitive and professional mathematical notation.
+  </p>
+
+  <h3>Model Components</h3>
+
+  <p><strong>Vars Block:</strong></p>
+    <div class="code-block">
+      Vars [out = true]:
+        &alpha;      // angle α [deg]
+        &beta;       // angle β [deg]
+    </div>
+
+  <p>Variables &alpha; and  &beta; represent angles in degrees. Their names use Unicode Greek letters, showing the system's ability to process non-ASCII characters.</p>
+
+  <p><strong>Params Block:</strong></p>
+    <div class="code-block">
+      Params:
+        &theta; = 70
+        &gamma; = 100
+    </div>
+
+  <p>Parameters &theta; and &gamma; are also named using Greek letters. Their values are used within the model's 
+    equations.</p>
+
+  <p><strong>NLEs Block (Nonlinear Equations):</strong></p>
+    <div class="code-block">
+      NLEs:
+        2*&alpha; + 2*&beta; = &theta;
+        4*&alpha; + 2*&beta; = &gamma;
+    </div>
+
+  <p>These equations define linear relationships between the variables and parameters. They demonstrate mathematical operations using Greek identifiers within the model structure.</p>
+
+  <p><strong>PostProc Block:</strong></p>
+  <div class="code-block">
+      PostProc:
+    </div>
+  <p>No post-processing operations are defined for this model.</p>
+
+    <div class="code-block">
+      end        // end of Model
+    </div>
+
+  <h3>Conclusion</h3>
+  <p>
+    This example demonstrates dTwin’s ability to support Unicode characters in model definitions. 
+    Using Greek letters such as &alpha;, &beta;, &theta;, and &gamma;
+    as variable and parameter names improves the readability and 
+    clarity of mathematical models, especially in engineering and scientific applications.
+    This Unicode feature allows users to adopt familiar symbolic notation and helps make models 
+    more intuitive and easier to interpret.
+  </p>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Power Flow: 3 Nodes, 1PQ and 1 PV Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>5.2. Power Flow: 3 Nodes, 1PQ and 1 PV Generator</h2>
+
+    <h3>Task Overview: </h3>
+    <p>
+        This task analyzes the voltage and phase angle distribution in a three-bus power system, where bus 1 is a slack bus (reference),
+        bus 2 is a PV generator node, and bus 3 is a PQ load node. The model includes switching the generator at bus 2 from PV to PQ mode
+        if reactive power limits are violated.
+    </p>
+
+    <h3>Task Objective: </h3>
+    <p>
+        The objective is to determine voltage magnitudes and phase angles at buses 2 and 3 while monitoring the operation of the PV generator.
+        The focus is whether the generator remains in PV mode or switches to PQ mode due to reactive power violations.
+    </p>
+
+    <h3>Program Analysis: </h3>
+
+    <p><strong>Model Definition</strong></p>
+
+    <div class="code-block">
+        Model [type=NL name="PF"]:
+    </div>
+
+    <p><strong>Variables</strong></p>
+
+    <div class="code-block">
+        Vars [out=true]:
+            phi_2=0
+            v_2=1
+            phi_3=0
+            v_3=1
+    </div>
+
+    <p><strong>Parameters</strong></p>
+
+     <div class="code-block">
+        Params:
+            v_1=1 [out=true]
+            phi_1=0
+            aY=32.8797974610715
+            thetaOffDiag=1.73594500420952
+            cGen2Reg=true [type=bool out=true]
+            P2_inj=0.1
+            Q2_inj=0.111 [out=true]
+            Q2_inj_min=-10
+            Q2_inj_max=10
+            V2_sp=1.01
+            P3_inj=-1
+            Q3_inj=-0.3
+    </div>
+
+    <p><strong>NLEs Block</strong></p>
+
+    <div class="code-block">
+        // node 2 (PV node)
+
+            v_2^2*aY22*cos(theta22) + v_2*(aY21*v_1*cos(phi_2-theta21-phi_1) + aY23*v_3*cos(phi_2-theta23-phi_3)) = P2_inj
+            if cGen2Reg:
+                v_2 = V2_sp
+            else:
+                -v_2^2*aY22*sin(theta22) + v_2*(aY21*v_1*sin(phi_2-theta21-phi_1) + aY23*v_3*sin(phi_2-theta23-phi_3)) = Q2_inj
+            end
+
+        // node 3
+
+            v_3^2*aY33*cos(theta33) + v_3*(aY32*v_2*cos(phi_3-theta32-phi_2)) = P3_inj
+            -v_3^2*aY33*sin(theta33) + v_3*(aY32*v_2*sin(phi_3-theta32-phi_2)) = Q3_inj
+    </div>
+
+
+    <p><strong>Limits Block</strong></p>
+
+    <div class="code-block">
+        Limits:
+            group [name="Gen2" enabled=true]:
+                if cGen2Reg:
+                    Q2_inj = -v_2^2*aY22*sin(theta22) + v_2*(aY21*v_1*sin(phi_2-theta21-phi_1) + aY23*v_3*sin(phi_2-theta23-phi_3))
+                    if Q2_inj <= Q2_inj_min [signal=TooLow]:
+                        cGen2Reg = false
+                        Q2_inj = Q2_inj_min
+                    else:
+                        if Q2_inj >= Q2_inj_max [signal=TooHigh]:
+                            cGen2Reg = false
+                            Q2_inj = Q2_inj_max
+                        end
+                    end
+                end
+            end
+    </div>
+
+
+    <h3>Graphical Results: </h3>
+
+    <div class="figure">
+        <img src="img/z2p2.png" alt="Voltage at nodes 2 and 3" width="500" height="400">
+        <p class="caption">Figure 5.2.1: Voltage at nodes 2 and 3 as apparent power S₃ increases</p>
+    </div>
+
+    <div class="figure">
+        <img src="img/z2p22.png" alt="Phase angle at node 3"width="500" height="400">
+        <p class="caption">Figure 5.2.2: Phase angle φ₃ as a function of load S₃</p>
+    </div>
+
+    <div class="figure">
+        <img src="img/z2r2.png" alt="Numerical simulation results">
+        <p class="caption">Figure 5.2.3: Numerical simulation results by iteration</p>
+    </div>
+
+    <h3>Conclusion: </h3>
+    <ul>
+        <li>Voltage at node 2 remains constant (v₂ = 1.01) due to PV regulation.</li>
+        <li>Node 3 shows a voltage drop and increasing negative phase angle as load increases.</li>
+        <li>Reactive power Q₂ remains within allowed limits, so the generator stays in PV mode.</li>
+    </ul>
+
+</body>
+</html>

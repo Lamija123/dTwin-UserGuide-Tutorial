@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Continuation Power Flow (CPF)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>5.11. Power Flow: Continuation Power Flow (CPF)</h2>
+
+  <h3>Task Overview: </h3>
+  <p>This task implements a continuation power flow (CPF) method in a three-node network with:</p>
+  <ul>
+    <li>Node 1 – Slack node (<strong>V₁</strong> fixed in magnitude and angle)</li>
+    <li>Node 2 – Generator bus (PV node) with voltage regulation and reactive power limits</li>
+    <li>Node 3 – Load bus (PQ node) with increasing load injection <strong>S₃</strong></li>
+  </ul>
+
+  <h3>Task Objective: </h3>
+  <p>The objective is to investigate the power transfer limits and system voltage stability using CPF by gradually increasing the load at node 3 while monitoring voltage profiles and regulation mode transitions at node 2.</p>
+
+  <h3>Program Analysis: </h3>
+
+  <div class="code-block">
+      	Model [type=NL domain=cmplx reInit=true name="PF With PV Regulating Generator And Its Limits"]:
+    </div>
+
+  <ul>
+    <li><code>reInit=true</code> ensures reinitialization for each power flow point</li>
+    <li><code>S3_inj</code> increases step-by-step via the <code>Repeats</code> block</li>
+    <li>Node 2 initially operates as a PV bus, regulating voltage to a setpoint of <strong>V₂ = 1.01</strong> p.u.</li>
+    <li>Generator on node 2 has reactive limits: <strong>Q<sub>min</sub> = -1</strong> p.u., <strong>Q<sub>max</sub> = 1.3</strong> p.u.</li>
+  </ul>
+  <p>The transition from PV to PQ mode occurs when the generator on node 2 reaches these reactive limits.</p>
+
+  <h3> Graphical Results: </h3>
+ 
+ <div class="figure">
+    <img src="img/kz4p4.png" alt="Voltage profiles v2 and v3"width="500" height="400">
+     <p class="caption">Figure 5.11.1: Voltage profiles v2 and v3</p>
+  </div>
+
+  <p><strong>Interpretation</strong></p>
+  <ul>
+    <li>Up to around <strong>S₃ ≈ 2</strong> p.u., the generator at node 2 successfully regulates the voltage, maintaining <strong>V₂ ≈ 1.01</strong> p.u.</li>
+    <li>Once the reactive power demand exceeds the generator limit (<strong>Q &gt; 1.3</strong>), the regulation is disabled and node 2 becomes a PQ bus.</li>
+    <li>Beyond this point, voltages on both nodes 2 and 3 decline steadily, indicating increased loading stress.</li>
+    <li>Near <strong>S₃ ≈ 5.3</strong> p.u., numerical divergence and oscillations occur in v₂ and v₃, showing the proximity to a voltage collapse (nose point).</li>
+  </ul>
+
+  <h3>Conclusion: </h3>
+  <p>The CPF analysis provides insight into the system’s ability to maintain voltage stability under increased loading conditions. The automatic transition of the generator at node 2 from PV to PQ mode due to reactive power limits plays a crucial role in the shape and stability margin of the PV curve. This approach is valuable in identifying loadability limits in planning and operation studies of power networks.</p>
+</body>
+</html>

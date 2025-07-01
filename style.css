@@ -1,0 +1,190 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #2c2c2c;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;  
+}
+
+.sidebar a {
+    display: block;
+    margin: 10px 0;
+    color: #00bfff;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+    width: 100%;
+}
+
+
+
+
+.dropdown-btn {
+    background-color: #2c2c2c;
+    color: #00bfff;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
+.dropdown-btn:hover {
+    background-color: #3a3a3a;
+}
+
+.dropdown-container {
+    display: none;
+    padding-left: 15px;
+}
+
+.dropdown-container a {
+    display: block;
+    color: #bbbbbb;
+    padding: 6px 0;
+    text-decoration: none;
+}
+
+.dropdown-container a:hover {
+    color: #00ffff;
+}
+
+
+
+
+body {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    display: block;
+}
+
+h2 {
+    color: #00bfff;
+}
+
+h3 {
+    color: #87ceeb;
+}
+
+h4 {
+    color: #6495ed;
+}
+
+i, em {
+    color: #ffff99; /* blijedo žuta */
+}
+
+
+.code-block {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.figure {
+    text-align: center;
+    margin: 30px 0;
+    display: block;
+    width: 100%;
+}
+
+.figure img {
+    max-width: 90%;
+    border: 1px solid #666;
+    display: block;
+    margin: 0 auto;
+}
+
+.caption {
+    font-style: italic;
+    margin-top: 5px;
+}
+
+
+
+a {
+    color: #1e90ff; /* Promijeni u boju koju želiš */
+    text-decoration: none; /* Ako ne želiš podvučeno */
+}
+
+a:hover {
+    color: #ff6600; /* Boja kada se pređe mišem */
+    text-decoration: underline; /* Opcionalno: doda podvlačenje */
+}
+
+
+.image-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 3 po redu */
+    gap: 5px;
+    height: auto;
+}
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.tutorial-content {
+    margin-left: 220px;  /* Ovo treba biti bar jednako širini tvoje sidebar */
+    padding: 20px;
+    box-sizing: border-box;
+    color: white;
+}
+
+.tutorial-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.tutorial-content li {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+b, strong {
+    color: #90ee90; /* Svijetlo zelena boja (LightGreen) */
+    font-weight: bold;
+}
+
+
+.image-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* tri kolone */
+  gap: 10px;
+  justify-items: center;
+  margin: 20px;
+}
+
+.image-group img {
+  width: 400px;
+  height: 200px;
+  object-fit: contain;
+}

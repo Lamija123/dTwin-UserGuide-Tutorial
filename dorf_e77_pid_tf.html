@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dorf Example E7.7 (PID) with Transfer Functions (TF)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>4.1. Dorf Example E7.7 (PID) with Transfer Functions (TF)</h2>
+
+    <p>The problem that will be analyzed below is Example 7.7, which is found on page 452 of the book 
+        Modern Control Systems, by Richard C. Dorf and Robert H. Bishop.</p>
+
+    <p>This example considers the methodology for manual tuning of a PID controller within a 
+        closed-loop system. The focus is on demonstrating how to adjust the proportional term of the 
+        PID controller with the aim of achieving sustained oscillations in the system's response. 
+        This procedure represents an initial step in the process of manual PID parameter tuning, 
+        which can serve as a basis for further optimization of the controller's operation and the 
+        achievement of stable and precise control.</p>
+
+    <h3>Task Overview</h3>
+    <p>The assignment analyzes the effects of manually tuned PID controller parameters on the 
+        response of a closed-loop system that includes a third-order dynamic system. The regulator 
+        comprises proportional (P), integral (I), and derivative (D) components, which collectively 
+        work to minimize the difference between the reference (input) signal and the actual system 
+        output.</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective of the assignment is to investigate the influence of the PID controller on the 
+        dynamic behavior of a third-order transfer function system, and to demonstrate the 
+        effectiveness of applying feedback in reducing static and dynamic errors, as well as in 
+        achieving the desired system output response.</p>
+
+    <h3>Program Analysis:</h3>  
+    <p>Definition of the model under consideration:</p>
+
+    <div class="code-block">
+      	Model [type=DAE domain=real method=RK4 name="Dorf Example 7.7 page 452"]:
+    </div>
+        <p><strong>type</strong> = ”DAE” – the system utilizes differential-algebraic equations.</p>
+        <p><strong>name</strong> = ”Dorf Example 7.7 page 452” – the name of the model.</p>
+        <p><strong>domain</strong> = ”real” – defines that all variables and parameters are in the real domain.</p>
+        <p><strong>method</strong> = ”RK4” – the fourth-order Runge-Kutta method is employed for solving.</p>
+
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+       Vars:
+            err [out=true]
+            yc
+            y [out=true]
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:
+            u=1 [out=true]
+            Kp=370
+            Ki=100
+            Kd=60
+            b=10
+            omega_n=4
+            sigma=0.707
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1</a>.</p>
+
+
+    <p>Block <strong>TFs</strong>:</p>
+    
+    <div class="code-block">
+        TFs:
+            yc/err = (Kd*s^2+Kp*s+Ki)/s		// PID controller 
+            y/yc   = 1/(s^3 + (2*sigma*omega_n+b)*s^2 + (2*sigma*omega_n*b)*s)
+    </div>
+
+    <p>The function of the <i>TFs</i> block is explained in <a href="pendulum-dae-tf.html">examples 5</a>.</p>
+
+    <p>Block <strong>NLEs</strong>:</p>
+    <div class="code-block">
+       NLEs:
+	        err=u-y		// negative feedback 
+    </div>
+
+    <p>The function of the <i>NLEs</i> block is explained in <a href="nonlinear-complex.html">examples 2</a>.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+    <p>After the analyzed code was successfully executed, the results presented in the following Figurema were obtained.</p>
+        
+    <p>Figure 4.1.1  displays an informational window that provides the user with concise feedback on the program's execution flow—specifically, whether the simulation completed without issues or if certain difficulties were detected during the process.</p>
+
+    <div class="figure">
+        <img src="img/z46.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 4.1.1: Code execution status information</div>
+    </div>
+
+
+    <p>Picture 4.1.2 shows a portion of the user interface designed for visualization code input, where the user specifies which variables to display and how. </p>
+
+    <div class="figure">
+        <img src="img/z47.jpg" alt="Figure 1.2">
+        <div class="caption">Figure 4.1.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>Figure 4.1.3 provides a graphical representation of the simulation results: the blue line illustrates the temporal change in the output value, the red line displays the error between the reference and output values, while the green line denotes the reference value</p>
+
+    <div class="figure">
+        <img src="img/z45.jpg" alt="Figure 1.3">
+        <div class="caption">Figure 4.1.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>Figure 4.1.4 presents precise numerical data acquired through iterative computation, with the simulation encompassing a total of 2001 time steps.</p>
+
+
+    <div class="figure">
+        <img src="img/z48.jpg" alt="Figure 1.4">
+        <div class="caption">Figure 4.1.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

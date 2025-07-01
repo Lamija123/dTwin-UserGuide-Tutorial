@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Description of platform content</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Description of platform content</h2>
+
+
+  <p> This section of the document provides a detailed overview of the fundamental commands within the dTwin platform and their usage. Additionally, it presents a set of functions available on 
+    the platform for solving mathematical problems across various domains.</p>
+
+
+ <h3>Setup commands</h3>
+
+
+    <p>Figure 1.2 displays the options available upon clicking the first icon (three parallel lines) located in the upper 
+    left corner of the interface. This action provides access to the core functionalities within the application.</p>
+
+    <p>The first option, <strong>Application</strong>, allows users to open the <i>Settings</i> window or 
+    exit the program via the <i>Quit</i> command.</p>
+
+    <div class="figure">
+        <img src="img/slika3.jpg" alt="Figure 1.2" lenght=400 width=800>
+        <div class="caption">Figure 1.2: View options in dTwin</div>
+    </div>
+
+ <p>By selecting the <strong>Settings</strong> command, a window will open, as shown in Figure 1.3, allowing the user to change the 
+    application language. The available language options are presented in a drop-down menu beneath the currently selected 
+    language. Additionally, there is an option that enables the display of icon names in the main window of the dTwin 
+    platform. This feature can be disabled by clicking the blue checkbox in the settings window.</p>
+
+
+    <div class="figure">
+        <img src="img/slika4.jpg" alt="Figure 1.3" lenght=400 width=800>
+        <div class="caption">Figure 1.3: Command Settings</div>
+    </div>
+
+    <p>Selecting another language and clicking on the Ok option requires restarting the application, picture 1.4.
+        After that, it is possible to use dTwin in the desired language.</p>
+
+    <div class="figure">
+        <img src="img/slika5.jpg" alt="Figure 1.4" lenght=400 width=800>
+        <div class="caption">Figure 1.4: Change the language within the application</div>
+    </div>
+
+
+    <h3>Modeling commands</h3>
+
+        <p>The primary purpose of the dTwin platform is solving mathematical problems, specifically through system modeling. 
+            Therefore, one of the key commands in this context is the <strong>Model</strong> command. </p>
+            
+
+    <div class="figure">
+        <img src="img/slika6.jpg" alt="Figure 1.5" lenght=400 width=800>
+        <div class="caption">Figure 1.5: Command Model</div>
+    </div>
+
+    <p>This command, illustrated in Figure 1.5, contains the following subcommands:</p>
+    <ul>
+    <li><strong>New Model</strong> – Creates a new blank model for further work. This command can be quickly activated using the shortcut Ctrl+N.</li>
+    <li><strong>New document from template</strong>  – Allows the creation of a new model using predefined templates. A variety of suggestions are offered to facilitate the modeling of typical systems.</li>
+    <li><strong>Examples</strong>  – Enables the user to browse and open existing model examples, which can be useful for learning and reference purposes.</li>
+    <li><strong>Open model</strong> – Opens an existing model from disk. It can be accessed using the Ctrl+O shortcut.</li>
+    <li><strong>Save</strong> - Saves the current model along with any changes made. This command is available only if a document is open and can be executed via Ctrl+S.</li>
+    <li><strong>Save As</strong>  – Allows the current model to be saved under a new name or in a different location, thereby preserving the original document.</li>
+    <li><strong>Solve </strong>  – This command is available only when a model or task is open. It initiates the solving process and provides both numerical and graphical (plot) outputs of the results.</li>
+</ul>
+
+    <p>An important part of the command <i>Model</i> is the <strong>Examples</strong> section, figure 1.6, which can serve as a foundation for 
+    learning and gaining a clearer understanding of the dTwin platform. 
+    These examples will be discussed in greater detail in the <a href="tutorial.html"> Tutorial</a> chapter.</p>
+
+
+    <div class="figure">
+        <img src="img/slika7.jpg" alt="Figure 1.6" lenght=400 width=800>
+        <div class="caption">Figure 1.6: Examples within dTwin</div>
+    </div>
+
+
+<h3>Plot commands</h3>
+
+<p><em>Detailed usage of the plot and its features is demonstrated in the example located under 
+<a href="pendulum-ode.html">Tutorial – General – Pendulum Model Described by Ordinary Differential Equations</a>.</em></p>
+
+<p>The <strong>Plot</strong> menu, figure 1.7, within the dTwin environment allows users to manage the display of simulation 
+    results in the form of graphs. These commands <strong>become active only when a model is opened and solved</strong>, 
+    i.e. when data is available for graphical representation (plotting). The menu includes the following options:</p>
+
+<ul>
+    <li><strong>Full Screen</strong> – Enables full-screen display of the graph to facilitate easier viewing and analysis of results.</li>
+    <li><strong>Show/Hide grid</strong> – Allows the user to toggle horizontal and vertical grid lines, which assist in reading values from the graph.</li>
+    <li><strong>Show/Hide legend </strong> – Enables or disables the display of the legend, which identifies the quantities represented in the graph.</li>
+    <li><strong>Save figure</strong> – Allows the current graph view to be saved as an image, which is useful for documentation and reporting purposes.</li>
+    <li><strong>Go to the original figure position/zoom </strong> – Restores the graph to its initial view and zoom level, which is helpful if the graph has been moved or zoomed during analysis.</li>
+    <li><strong>Adjust to figure settings </strong> – Enables detailed customization of the graph’s appearance, including color schemes, line styles, axis labels, and other graphical settings.</li>
+</ul>
+
+<div class="figure">
+    <img src="img/slika8.jpg" alt="Figure 1.7" width="800">
+    <div class="caption">Figure 1.7: Plot menu</div>
+</div>
+
+<h4>Graph Interaction and Controls</h4>
+
+<p>After running the code in the previous section and clicking on the <strong>Solve</strong> icon, the plot 
+    window appears as shown in Figure 1.8.</p>
+
+<div class="figure">
+    <img src="img/ODE.png" alt="Figure 10" width="800">
+    <div class="caption">Figure 1.8: Example of state variables for a pendulum</div>
+</div>
+
+<p>In dTwin, graphs can be manipulated directly within the plot window. Key functionalities include:</p>
+
+<ol>
+    <li><strong>Reset to original position/zoom</strong>:  
+        Users can quickly reset the graph view to its original zoom and position, helpful for reorienting the d
+        ata display (Figure 1.9).
+        <div class="figure">
+            <img src="img/pozicija.png" alt="Figure 11" width="500">
+            <div class="caption">Figure 1.9: Reset to original position/zoom</div>
+        </div>
+    </li>
+
+    <li><strong>Toggle grid lines</strong>:  
+        This feature enables toggling of grid lines for better readability and accurate data interpretation (Figure 1.10).
+        <div class="figure">
+            <img src="img/grid.png" alt="Figure 12" width="500">
+            <div class="caption">Figure 1.10: Show/hide grid</div>
+        </div>
+    </li>
+
+    <li><strong>Toggle legend</strong>:  
+        The legend can be shown or hidden as needed to make more room for the plot or focus on key variables (Figure 1.11).
+        <div class="figure">
+            <img src="img/legenda.png" alt="Figure 13" width="500">
+            <div class="caption">Figure 1.11: Show/hide legend</div>
+        </div>
+    </li>
+
+    <li><strong>Save graph</strong>:  
+        The current plot can be saved as an image file, suitable for use in reports or presentations (Figure 1.12).
+        <div class="figure">
+            <img src="img/spremi.png" alt="Figure 14" width="500">
+            <div class="caption">Figure 1.12: Save figure</figure></div>
+        </div>
+    </li>
+
+    <li><strong>Adjust graph appearance</strong>:  
+        A dedicated settings panel (Figures 1.13–1.15) allows fine-tuning of the graph layout, legend format, font size, spacing, and more.
+        <ul>
+            <li>Adjust margins, font size, axis spacing, and image dimensions (Figures 1.13 and 1.14).</li>
+            <li>Customize line colors and styles for better visual distinction (Figure 1.15).</li>
+        </ul>
+
+        <div class="figure">
+            <img src="img/uredjivanje.png" alt="Figure 15" width="400">
+            <div class="caption">Figure 1.13: Graph settings menu</div>
+        </div>
+
+        <div class="figure">
+            <img src="img/postavke_grafa.png" alt="Figure 16" width="400">
+            <div class="caption">Figure 1.14: Graph dimensions and layout</div>
+        </div>
+
+        <div class="figure">
+            <img src="img/postavke_grafa_2.png" alt="Figure 17" width="400">
+            <div class="caption">Figure 1.15: Line color and style settings</div>
+        </div>
+    </li>
+</ol>
+
+
+
+    <h3>Main window commands</h3>
+
+ <p>The main window of the dTwin application contains essential commands for working with models and tasks 
+    (as previously discussed). These commands (Figure 1.16) enable quick management of documents, 
+    model solving, and access to basic settings. 
+    The available commands include:</p>
+    <ul>
+    <li><strong>Settings</strong> – Opens the menu for configuring the application’s basic settings. Here, users can change the interface language and 
+        toggle the display of icon names in the main window.</li>
+    <li><strong>New</strong> – Initiates the creation of a new blank model.</li>
+    <li><strong>Template</strong> – Allows the user to open predefined modeling templates, which facilitate the creation of commonly used model structures.</li>
+    
+    <li><strong>Open</strong> – Used to open an existing model or task from the computer.</li>
+    <li><strong>Save</strong> – Saves the currently opened model or task. This command is active only when a model or task is open.</li>
+    <li><strong>Plot</strong> – Displays the results of a solved model in graphical form. This option becomes available only after a model has been opened and solved, and when data for graphical display is available.</li>
+    <li><strong>Solve</strong>  – Initiates the simulation of the active model. This option is available only when a model is open and allows for system behavior analysis as well as the generation of results and plots.</li>  
+    </ul>
+
+
+    <div class="figure">
+        <img src="img/slika9.jpg" alt="Figure 1.8" lenght=400 width=800>
+        <div class="caption">Figure 1.16: Icons within the dTwin main window</div>
+    </div>
+
+</body>
+</html>

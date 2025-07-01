@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>State Estimation with Noise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>5.6. State Estimation with Noise</h2>
+
+    <h3>Task Overview: </h3>
+    <p>
+        This task presents a robust state estimation model that includes Gaussian measurement noise and
+        statistical analysis of the estimation error. The model uses the Weighted Least Squares (WLS) method
+        and Monte Carlo simulation with random measurement noise to evaluate estimator accuracy.
+    </p>
+
+    <h3>Task Objective:</h3>
+    <p>
+        Estimate the system state (voltages and angles) in the presence of noisy measurements.
+        The model evaluates power injections at node 3 over multiple repetitions and calculates statistics
+        such as minimum, maximum, average, variance, and standard deviation of the estimation error.
+    </p>
+
+    <h3>Program Analysis:</h3>
+
+    <p><strong>Model Definition</strong></p>
+    <div class="code-block">
+        Model [type=WLS domain=real eps=1e-5 name="GNSE With Noise and Statistics"]:
+    </div>
+   
+    <p>
+        <code>type = "WLS"</code> – Weighted Least Squares method<br>
+        <code>domain = "real"</code> – real-valued variables<br>
+        <code>eps = 1e-5</code> – convergence tolerance
+    </p>
+
+    <p><strong>Variables</strong></p>
+    <ul>
+        <li><code>v_1</code>, <code>v_2</code>, <code>v_3</code> – voltage magnitudes (estimated)</li>
+        <li><code>phi_2</code>, <code>phi_3</code> – voltage phase angles at nodes 2 and 3</li>
+    </ul>
+
+    <p><strong>Measurement Model</strong></p>
+    <ul>
+        <li>Gaussian noise generators:
+            <ul>
+                <li><code>g1</code> for <code>P₃</code>, <code>Q₃</code> with μ = 0, σ = 0.03</li>
+                <li><code>g2</code> for voltages with μ = 0.001, σ = 0.04</li>
+            </ul>
+        </li>
+        <li>Noise applied in <code>PreProc</code> using expressions like:
+            <code>P3_inj = P3_real + rnd(g1)</code>
+        </li>
+    </ul>
+
+    <p><strong>WLSEs Block (Weighted Equations)</strong></p>
+    <ul>
+        <li>Zero-injection constraint at node 2 (high weight <code>w_zi = 10000</code>)</li>
+        <li>Active and reactive injection equations at node 3</li>
+        <li>Voltage magnitude measurements for nodes 1, 2, and 3</li>
+    </ul>
+
+    <p><strong>PostProc Block (Output and Statistics)</strong></p>
+    <div class="code-block">
+        PostProc:
+            P3_est = ...
+            Q3_est = ...
+            stat << abs(P3_est - P3_real) << abs(Q3_est - Q3_real)
+            minVal = smin(stat)
+            maxVal = smax(stat)
+            avgVal = avg(stat)
+            varVal = var(stat)
+            devVal = dev(stat)
+    </div>
+
+    <p><strong>Repeats Block (Monte Carlo Loop)</strong></p>
+
+    <div class="code-block">
+        Repeats:
+            if jReps <= 20:
+                iReps += 1
+                if iReps > 10:
+                    iReps = 1
+                    jReps += 1
+                end
+                repeat
+            end
+    </div>
+
+    <p>The model runs 200 repetitions (10 × 20) to collect statistical data.</p>
+
+    <h3>Conclusion: </h3>
+    <ul>
+        <li>Voltage estimates remain stable despite noisy inputs</li>
+        <li>Post-processing statistics reveal consistent error bounds</li>
+        <li>Zero-injection constraint is reliably enforced</li>
+    </ul>
+
+    <p>
+        The GNSE model with noise demonstrates that WLS estimation is resilient to sensor uncertainty and
+        effective for uncertainty quantification in real-world systems.
+    </p>
+
+</body>
+</html>

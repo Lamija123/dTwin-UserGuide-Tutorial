@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nonlinear Equations in the Complex Domain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>1.2. Nonlinear Equations in the Real Domain</h2>
+
+    <h3>Task Overview</h3>
+    <p>This task addresses solving a system of nonlinear equations within the complex domain. The model
+    comprises two complex variables and two nonlinear equations involving addition and multiplication
+    of complex numbers.</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective is to determine the variable values that satisfy the given equations.</p>
+    
+    <h3>Program Analysis:</h3> 
+    <p>We begin by defining the desired model.</p>
+
+    <div class="code-block">
+        Model [ type = NL domain = cmplx name = " CmplxDemo " ]:
+    </div>
+
+    <p>The desired model properties are specified as follows::</p>
+        <p><strong>type</strong> = "NL" - the model contains nonlinear equations.</p>
+        <p><strong>name</strong> = "CmplxDemo" - The model is named "CmplxDemo".</p>
+        <p><strong>domain</strong> = cmplx" - All expressions are defined within the complex domain.</p>
+
+    <p>Block <strong>Vars</strong></p>
+    <div class="code-block">
+        Vars [conj=false out=true]:
+	        x=e+1i*e
+	        y=0		
+    </div>
+
+    <p>This block defines the model variables.</p>
+    <p>The keyword <i>Vars</i> indicates the start of the variable list. The optional attribute [out = true] specifies
+        whether the variables will be included in the simulation results. The optional attribute [conj=false]
+        disables automatic generation of conjugate variables when set to false. The variable x is initialized
+        with the complex number (e + i * e), and variable y is initialized to zero.</p>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:
+	        z=2+5i
+    </div>
+
+    <p>As explained in <a href="nonlinear-real.html">example 1</a>, this section is used to define the constants employed in the model equations.</p>
+
+    <p>Block NLEs</p>
+    <div class="code-block">
+        NLEs:
+	        x+y-1+2i=z		
+	        x*y=4i		
+    </div>
+
+    <p>This section specifies the nonlinear equations of the system to be solved numerically.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+    
+        end // end of Model
+    </div>
+</body>
+</html>

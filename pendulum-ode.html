@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pendulum Model Described by Ordinary Differential Equations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>1.3. Pendulum Model Described by Ordinary Differential Equations</h2>
+
+    <h3>Task Overview</h3>
+    <p>The task involves the numerical solution of a system of ordinary differential equations (ODEs) to
+        analyze the dynamic behavior of a physical pendulum model. The focus is on calculating and
+        graphically presenting the time evolution of the angular displacement (theta) and angular velocity
+        (omega). The model enables monitoring the influence of various physical system parameters, such
+        as pendulum length, mass, gravity, and friction coefficient, on the overall system behavior.</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective is to demonstrate the dynamic variation of key system variables—angular displacement 
+        and angular velocity—over time, while analyzing their interdependence and dependence on
+        physical parameters. This facilitates a deeper understanding of the fundamental principles governing
+        oscillatory systems and their behavior under ideal and real conditions.</p>
+
+    <h3>Program Analysis:</h3> 
+    <p>Definition of the analyzed model:</p>
+
+    <div class="code-block">
+       Model [type=ODE name="Pendulum using direct ODE solver"]:
+    </div>
+        <p><strong>type</strong> = "ODE" – pecifies that the model solves ordinary differential equations.</p>
+        <p><strong>name</strong> = "Pendulum using direct ODE solver" – esignates the model name.</p>
+       
+
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+        Vars [out=true]:
+            theta=pi/6	
+            omega=0		
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:
+            l=1		
+            m=1		
+            g=9.81		
+            k=0		
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1</a>.</p>
+
+    <p>Block <strong>ODEs</strong>:</p>
+    
+    <div class="code-block">
+        ODEs:
+            theta'=omega	
+            omega'=-g*sin(theta)/l-k*omega/(m*l)	
+    </div>
+
+    <p>This block is used to define ordinary differential equations that mathematically describe the behavior 
+        of the analyzed system. In this specific case, it represents the pendulum model.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+    <p>After executing the analyzed code, the results obtained are presented below. </p>
+        
+    <p>Figure 1.3.1 shows  a window that informs the user about the status of the program execution,
+        indicating whether the code was successfully executed or an error occurred during the process.</p>
+
+    <div class="figure">
+        <img src="img/z5.jpg" alt="Slika 1.1">
+        <div class="caption">Figure 1.3.1: Code execution status information</div>
+    </div>
+
+
+    <p>Figure 1.3.2 shows the code input interface used to visualize the simulation results. In this part
+        of the user interface, it is possible to define which variables will be displayed and how they will be
+        presented.</p>
+
+    <div class="figure">
+        <img src="img/z8.jpg" alt="Figure 1.2" width="800" height="300">
+        <div class="caption">Figure 1.3.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>Figure 1.3.3 presents the graphical output of the simulation execution. The pink line represents
+        the variation of angular velocity (omega) as a function of time, while the purple line depicts the
+        temporal evolution of the angular displacement (theta).</p>
+
+    <div class="figure">
+        <img src="img/z6.jpg" alt="Figure 1.3"  width="800" height="300">
+        <div class="caption">Figure 1.3.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>Figure 1.3.4 presents the numerical results obtained after code execution. These results represent
+        the specific values of variables calculated during the simulation using the iterative method. From
+        figure 1.3.4, it is evident that the number of simulation points is 5001.</p>
+
+
+    <div class="figure">
+        <img src="img/z7.jpg" alt="Figure 1.4">
+        <div class="caption">Figure 1.3.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Power flow: 3 nodes, transfer capability</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>5.10. Power Flow: 3 Nodes - Transfer Capability</h2>
+
+  <h3>Task Overview: </h3>
+  <p>This task examines the power transfer capacity of a 3-node system consisting of:</p>
+  <ul>
+    <li>Node 1 – Slack node with constant voltage magnitude and angle.</li>
+    <li>Node 2 – PQ node with fixed injection S₂ = 0.2 + j0.</li>
+    <li>Node 3 – PQ load node, where the active and reactive power demand is gradually increased to test the system’s transfer limits.</li>
+  </ul>
+
+  <h3>Task Objective: </h3>
+  <p>The aim is to determine the maximum amount of power (S₃) that can be transferred to the load at node 3 before the system reaches its operational or voltage stability limits (e.g., nose point in the PV curve).</p>
+
+  <h3>Program Analysis: </h3>
+
+  <div class="code-block">
+      	Model [type=NL domain=cmplx reInit=true name="PF With Transfer Cap. Test"]:
+    </div>
+
+  <p><code>domain = "cmplx"</code> – The model operates in the complex domain.<br>
+     <code>reInit = true</code> – Ensures reinitialization for each new load value.</p>
+
+ <p><strong>Repeats Block</strong></p>
+  <p>Defines how the load on node 3 is gradually increased:</p>
+  <ul>
+    <li>Steps of 0.01 + j0.001 until P₃ ≈ -6.65.</li>
+    <li>Finer steps near the nose point to ensure convergence.</li>
+  </ul>
+
+  <h3>Graphical Results: </h3>
+  
+ <div class="figure">
+    <img src="img/kz3p3.png" alt="Voltage magnitude at node 3 as a function of transferred power S3"width="500" height="400">
+     <p class="caption">Figure 5.10.1: Voltage magnitude at node 3 as a function of transferred power S3</p>
+  </div>
+  <p><strong>Interpretation</strong></p>
+  <ul>
+    <li>As the power demand on node 3 increases (i.e., as |S₃| grows), the voltage magnitude at node 3 (|v₃|) gradually decreases.</li>
+    <li>Near the critical transfer point, the voltage drops sharply and oscillations occur, indicating proximity to the nose point (voltage collapse limit).</li>
+    <li>This characteristic is typical of PV (power-voltage) curves and illustrates the maximum loadability point of the system.</li>
+    <li>Based on the figure, the system becomes unstable around S₃ ≈ -6.65 p.u., after which convergence fails or voltage behavior becomes erratic.</li>
+  </ul>
+
+  <h3>Conclusion: </h3>
+  <p>This test clearly reveals the transfer capability limits of a simple 3-node power system. As the load on node 3 is increased, voltage at the receiving node drops, ultimately reaching the system’s stability boundary. This type of analysis is essential in planning studies to ensure secure and stable operation under high transfer conditions.</p>
+

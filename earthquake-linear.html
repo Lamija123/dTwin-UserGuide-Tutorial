@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Earthquake linearized model</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>2.4. Earthquake linearized model</h2>
+
+    <h3>Task Overview</h3>
+    <p>The Quake linearized model represents a simplified, linearized version of the "Cart-Pendulum" mec-
+        hanical system, used to analyze the system’s response to external disturbances such as short-term
+        earthquakes. This model introduces the approximation of small displacements and small angles, allowing the substitution of nonlinear functions like sine and cosine with their linear equivalents (e.g.,
+        sin(j) ≈ j , cos(j) ≈ 1 ). This significantly simplifies the mathematical formulation, enabling faster
+        simulation and analysis of the system.</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective of the simulation is to analyze the dynamic response of the system to this excitation
+        and examine the effects of damping and stiffness parameters on system stability.</p>
+
+    <h3>Program Analysis:</h3> 
+    <p>Definition of the analyzed model:</p>
+
+    <div class="code-block">
+       Model [type=DAE name="Quake linearized" domain=real method=RK4 eps=1e-5]:
+    </div>
+        <p><strong>type</strong> = "DAE" – the system uses differential-algebraic equations.</p>
+        <p><strong>name</strong> = "Quake linearized" – model name.</p>
+
+        <p><strong>domain</strong> = "real" – specifies that all variables and parameters are in the real domain.</p>
+        <p><strong>eps</strong> = 1e-5 – specified solution accuracy.</p>
+        <p><strong>method</strong> = "RK4" – the fourth-order Runge-Kutta method is used for solving.</p>
+
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+        Vars [out=true]:
+            x = 1
+            v = 0.
+            θ = 0.5 
+            ω = 0.		
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:
+            Ω = 2*pi*0.3
+            M=10
+            m=1
+            L=1
+            c_1=2
+            c_2=1
+            k=2
+            F_0=3
+            F_ext = F_0 [out=true]		//Extern force
+            mult = 1/(m*L^2*M)
+            g=9.81
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1.1</a>.</p>
+
+    <p>Block <strong>ODEs</strong>:</p>
+    
+    <div class="code-block">
+        ODEs:
+            x' = v
+            v' = mult * (m*L^2*(F_ext-c_1*v-k*x) + m*L*(c_2*ω + m*g*L*θ))
+            θ' = ω
+            ω' = mult * (-m*L*(F_ext-c_1*v-k*x) - (M+m)*(c_2*ω + m*g*L*θ))
+	
+    </div>
+
+    <p>The function of the ODEs block was explained in <a href="pendulum-ode.html">example 1.3</a>.
+        It contains the ordinary differential equations that describe the analyzed system.</p>
+
+    <p>Block <strong>PostProc</strong>:</p>
+    
+    <div class="code-block">
+        PostProc:
+            if t &lt 1:			//Limit extern force to be active in first second only
+                F_ext=F_0 * cos(Ω * t)
+            else:
+                F_ext=0
+            end
+    </div>
+      
+    The block has the same function as in <a href="cart-model-nonlinear.html">the previous task</a>.
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+    <p><i>The model enables comparison with nonlinear versions of the same system, which is useful for
+        evaluating the validity of linear approximations in modeling mechanical systems subjected to real
+        excitations.</i></p>
+
+    <p>Upon successful execution of the program, the obtained results are shown below.</p>
+        
+    <p>The interface displayed after starting the simulation is shown in figure 2.4.1.</p>
+
+    <div class="figure">
+        <img src="img/z33.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 2.4.1: Code execution status information</div>
+    </div>
+
+
+    <p>Picture 2.4.2 shows the user interface that allows code input for visualization of the simulation
+        results.</p>
+
+    <div class="figure">
+        <img src="img/z34.jpg" alt="Figure 1.2">
+        <div class="caption">Figure 2.4.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>The results of the code execution shown in picture 2.4.2 are presented in picture 2.4.3. The diagram illustrates the following time dependent variables: the black line represents the
+        change in position, while the green line depicts the change in velocity over time. The blue line shows
+        the pendulum’s angular displacement, and the red line tracks the angular velocity. The brown line
+        represents the magnitude of the external force as a function of time.</p>
+
+    <div class="figure">
+        <img src="img/z36.jpg" alt="Figure 1.3" width="800" height="400">
+        <div class="caption">Figure 2.4.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>Figure 2.4.4 displays the numerical results obtained from the simulation execution. The presented
+        values represent precisely calculated data using an iterative numerical method.</p>
+
+
+    <div class="figure">
+        <img src="img/z35.jpg" alt="Figure 1.4">
+        <div class="caption">Figure 2.4.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

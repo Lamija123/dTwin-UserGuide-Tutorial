@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>State Estimation with Equality Constraints</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>5.4. State Estimation with Equality Constraints</h2>
+
+    <h3>Task Overview: </h3>
+    <p>
+        This task models a power system state estimation problem using the Weighted Least Squares (WLS) method.
+        The system consists of three buses with a combination of measured power flows, injections, and voltage magnitudes.
+        The goal is to estimate voltage magnitudes and phase angles by minimizing the weighted residuals of the measurement equations.
+    </p>
+
+    <h3>Task Objective:</h3>
+    <p>
+        The objective is to compute the voltage magnitudes and phase angles in a 3-bus network using WLS estimation.
+        Measurements include active/reactive power flows between buses, power injections at node 2,
+        and voltage magnitudes at nodes 1 and 2. Each measurement is weighted based on accuracy.
+    </p>
+
+    <h3>Program Analysis:</h3>
+
+    <p><strong>Model Definition</strong></p>
+    <div class="code-block">
+        Model [type=WLS domain=real name="AburExposito_"]:	
+    </div>
+  
+
+    <p>
+        <code>type = "WLS"</code> – Weighted Least Squares method<br>
+        <code>domain = "real"</code> – Real-valued variables and equations<br>
+        <code>name = "AburExposito_"</code> – Refers to textbook example by Abur & Exposito
+    </p>
+
+    <p><strong>Vars Block</strong></p>
+    <div class="code-block">
+        Vars [out=true]:
+            theta_2=0
+            theta_3=0
+            v_1=1
+            v_2=1
+            v_3=1	
+    </div>
+
+    <p>State variables to be estimated:</p>
+    <ul>
+        <li><code>theta_2</code>, <code>theta_3</code> – phase angles at buses 2 and 3 (θ₁ = 0 fixed)</li>
+        <li><code>v_1</code>, <code>v_2</code>, <code>v_3</code> – voltage magnitudes at all buses</li>
+    </ul>
+
+    <p><strong>Params Block</strong></p>
+    <p>Defines:</p>
+    <ul>
+        <li>Measurement weights: <code>w_inj</code>, <code>w_br</code>, <code>w_v</code></li>
+        <li>Line parameters between buses</li>
+        <li>Measured power flows, injections, and voltages</li>
+    </ul>
+
+    <p><strong>WLSEs Block (Measurement Equations)</strong></p>
+
+    <div class="code-block">
+        WLSEs:
+            [w=w_br]   P_12 measurement equation
+            [w=w_br]   P_13 measurement equation
+            [w=w_inj]  P_2 injection equation
+            [w=w_br]   Q_12 and Q_13 equations
+            [w=w_inj]  Q_2 injection equation
+            [w=w_v]    v_1 = V_1
+            [w=w_v]    v_2 = V_2
+    </div>
+
+    <p>Each equation is weighted and compares calculated and measured values.</p>
+
+    <p><strong>PostProc Block</strong></p>
+    <div class="code-block">
+        PostProc:
+            P_1, P_2, P_3 – calculated active power injections
+            Q_1, Q_2, Q_3 – calculated reactive power injections
+    </div>
+    <p>Used to verify estimation correctness after convergence.</p>
+
+    <h3>Numerical Results:</h3>
+
+    <div class="figure">
+        <img src="img/z3r3.png" alt="Numerical state estimation results per iteration">
+        <p class="caption">Figure 5.4.1: Estimated state and power injections per iteration</p>
+    </div>
+
+    <ul>
+        <li>Initial values: all variables set to 1 or 0</li>
+        <li>Convergence reached in 4 iterations</li>
+        <li>Final estimated values:
+            <ul>
+                <li>Voltages: v₁ = 0.999629, v₂ = 0.974156, v₃ = 0.943890</li>
+                <li>Angles: θ₂ = –0.021774 rad, θ₃ = –0.047922 rad</li>
+            </ul>
+        </li>
+        <li>Calculated power injections:
+            <ul>
+                <li>P₁ = 2.064016, P₂ = –0.495976, P₃ = –1.514220</li>
+                <li>Q₁ = 1.226440, Q₂ = –0.297749, Q₃ = –0.787529</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Graphical Analysis:</h3>
+
+    <div class="figure">
+        <img src="img/z3p3.png" alt="Convergence of WLS estimation error" width="500" height="400">
+        <p class="caption">Figure 5.4.2: Convergence of estimation error ε (log scale)</p>
+    </div>
+
+    <p>
+        The graph confirms consistent and exponential error reduction, indicating numerical stability and fast convergence.
+    </p>
+
+    <h3>Conclusion: </h3>
+    <p>
+        The model converged in 4 iterations, providing reliable state estimates. Weighted measurements ensure realistic voltage and angle profiles.
+        This method is crucial for real-time power system monitoring and control.
+    </p>
+
+</body>
+</html>

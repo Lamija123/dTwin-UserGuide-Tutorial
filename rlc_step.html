@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RLC circut with Step Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>3.1. RLC circut with Step Generator</h2>
+
+    <h3>Task Overview</h3>
+    <p>This task involves modeling and analysis of a series RLC circuit excited by a step voltage function,
+		utilizing an approach based on ordinary differential equations (ODEs). The model applies funda-
+		mental physical laws governing electrical components — resistor (R), inductor (L), and capacitor (C)
+		— to describe system behavior through key variables: input voltage (u_g), capacitor voltage (u_c),
+		inductor current (i_L), and voltage drop across the inductor (u_L).</p>
+
+    <h3>Task objective:</h3>
+    <p>Model a series RLC system using a set of differential equations that describe the dynamic behavior of
+	the components over time. The goal is to monitor the transient response of the circuit by analyzing
+	the changes in current and voltage due to step excitation. Visualization of key variables (u_c, i_L,
+	u_L) over time is essential for understanding the dynamics of the RLC circuit. Numerical results
+	should be compared with theoretical expectations of the behavior of the RLC circuit under step
+	excitation.</p>
+
+    <h3>Program Analysis:</h3>
+    <p>Definition of the model under consideration:</p>
+
+    <div class="code-block">
+      	Model [type=ODE domain=real name="Serial RLC With Step Gen"]:
+    </div>
+        <p><strong>type</strong> = ”ODE” – the model solves ordinary differential equations.</p>
+        <p><strong>name</strong> = ”Serial RLC With Step Gen” – model name</p>
+        <p><strong>domain</strong> = ”real” – defines that all variables and parameters are in the real domain.</p>
+     
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+        Vars [out=true]:
+		u_c=0
+		i_L=0
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+       Params:
+	t=0
+	R=1
+	L=0.01
+	C=1e-5
+	u_g=10 [out=true]
+	u_L=u_g [out=true]
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1</a>.</p>
+
+
+    <p>Block <strong>ODEs</strong>:</p>
+    
+    <div class="code-block">
+        ODEs:
+	i_L' = (u_g-u_c-R*i_L)/L
+	u_c' = i_L/C
+    </div>
+
+    <p>The Block a <i>ODEs</i> function is explained in <a href="pendulum-ode.html">examples 3</a>.
+        Here, differential and algebraic nonlinear equations describing the analyzed system are entered.</p>
+
+    <p>Block <strong>PostProc</strong>:</p>
+    <div class="code-block">
+       PostProc:
+	u_L = u_g-u_c-R*i_L
+    </div>
+
+    <p>After the main variables are simulated, the voltage across the inductor (L) is calculated, enabling additional visualization and verification of the inductor's state.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+    <p>Upon successful completion of the analyzed code execution, the obtained results are presented in the following figures </p>
+        
+    <p>Figure 3.1.1  displays an informational window providing the user with feedback on the simulation progress — indicating whether the process proceeded without issues or if any errors were encountered.</p>
+
+    <div class="figure">
+        <img src="img/z40.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 3.1.1: Code execution status information</div>
+    </div>
+
+
+    <p>Figure 3.1.2 shows the section of the user interface designated for entering code to display results, where the user defines which variables will be displayed and in what format. </p>
+
+    <div class="figure">
+        <img src="img/z38.jpg" alt="Figure 1.2" width="800" height="400">
+        <div class="caption">Figure 3.1.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>Picture 3.1.3 shows a graphical representation of the simulation results: the blue line indicates the variation of the voltage across the inductor as a function of time, the red line represents the change in voltage across the capacitor over time, and the green line depicts the current flowing through the inductor during the simulation period.</p>
+
+    <div class="figure">
+        <img src="img/z37.jpg" alt="Figure 1.3" width="800" height="400">
+        <div class="caption">Figure 3.1.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>Picture 3.1.4 contains a numerical overview of the results obtained by applying the iterative method, where the simulation covered a total of 100001 discrete time points.</p>
+
+
+    <div class="figure">
+        <img src="img/z39.jpg" alt="Figure 1.4">
+        <div class="caption">Figure 3.1.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

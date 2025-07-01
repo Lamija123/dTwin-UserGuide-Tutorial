@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Allowed functionalities in dTwin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Allowed functionalities in dTwin</h2>
+
+
+  <p> The dTwin software enables the modeling and analysis of various mathematical and engineering systems. 
+    In order for users to fully utilize the capabilities of this tool, it is essential to understand the set of 
+    supported functionalities, functions, groups, and attributes that can be used in model descriptions.</p>
+
+    <p>The following section outlines all currently supported features, organized by category — mathematical 
+    functions, modeling groups, and attributes that define model parameters.</p>
+
+
+ <h3>Allowed mathematical functions</h3>
+
+
+    <p>Mathematical functions form the foundation for describing model behavior within dTwin. These functions can be used within expressions and equations that constitute the model. The functions are categorized into two groups: 
+        functions for operations with real numbers and functions for operations with complex numbers.</p>
+
+    <h4>Real functions</h4>
+        <p>The following functions are permitted in models using real numbers:</p>
+
+        <ul>
+            <li><i>abs, acos, asin, atan, cos, exp, sqrt, ln, log, sin, tan</i></li>
+            <li><i>sqr, atan2, min, max, smin, smax, avg, var, dev, diff, sign</i></li>
+            <li><i>sinh, cosh, tanh, asinh, acosh, atanh</i></li>
+            <li><i>int, lim, rnd, disn, disc</i></li>
+        </ul>
+
+
+    <h4>Complex functions</h4>
+
+        <p>The following functions are supported exclusively in models that involve complex numbers:</p>
+
+        <ul>
+            <li><i>conj, cabs, rtop, ptor, real, imag</i></li>
+        </ul>
+
+    <h3>Allowed groups for digital model</h3>
+        <p>The structure of a model in dTwin is organized into groups, each serving a specific role in the construction and execution of the model. 
+        Every group contains blocks that define variables, parameters, differential equations, and other model components.</p>
+
+        <p>The following groups are currently supported within the digital modeling framework:</p>
+
+        <ul>
+            <li><i>Model, SubModel, Vars, Params, Distribs, Stats, ReInit, PreProc</i></li>
+            <li><i>NLEs, WLSEs, ECs, ODEs, PDEs, TFs</i></li>
+            <li><i>IterPostP, BasePostP, PostProc, Limits, Repeats, Plots</i></li>
+        </ul>
+
+
+
+
+    <h3>Allowed attributes and their types</h3>
+        <p>Within each group and expression, various attributes may be used. Attributes represent parameters that further define the model’s behavior, 
+            and each has a strictly defined data type it must conform to.</p>
+
+        <p>The allowed attributes are as follows:</p>
+
+        <ul>
+            <li>Enumerations: <i>domain, type, method, signal, backColor</i></li>
+            <li>Real values (float): <i>eps, dT, w, k, p, n, alpha, beta, lambda, min, max, mean, dev, step, width, minX, maxX, minY, maxY</i></li>
+            <li>Integers (int): <i>copyPars, maxIter</i></li>
+            <li>Boolean values (bool): <i>out, conj, enabled, reInit, alwaysOn, initMain, legend, integer</i></li>
+            <li>String values: <i>name, xLabel, yLabel</i></li>
+            <li>Colors: <i>colorL, colorD</i></li>
+            <li>Line patterns: <i>pattern</i></li>
+        </ul>
+
+
+        <p>All attributes must be used in accordance with proper syntax and their corresponding data types.</p>
+</body>
+</html>

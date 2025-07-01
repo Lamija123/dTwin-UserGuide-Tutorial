@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dorf Example E.760 using TF model with limit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>4.4. Dorf Example E.760 using TF model with limit</h2>
+
+    <h3>Task Overview</h3>
+    <p>In this assignment, a control system for disk head positioning was modeled, utilizing a PD controller. The model represents an extended version of the system from Example 7.60 in Dorf's book, and it is presented in the form of a differential-algebraic system (DAE) solved by the sixth-order Runge-Kutta method (RK6).</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective of this assignment is to analyze the response of the disk head positioning system to a change in the reference signal under conditions both without and with disturbances, utilizing a PD controller with output limiting.</p>
+
+    <h3>Program Analysis:</h3> 
+    <p>Definition of the model under consideration:</p>
+
+    <div class="code-block">
+      	Model [type=DAE domain=real method=RK6 name="Dorf Example 7.60 str 481"]:
+    </div>
+        <p><strong>type</strong> = ”DAE” – the system utilizes differential-algebraic equations.</p>
+        <p><strong>name</strong> = ”Dorf Example 7.60 page 481” –  model's name</p>
+        <p><strong>domain</strong> = ”real” – defines that all variables and parameters are in the real domain.</p>
+        <p><strong>method</strong> = ”RK6” – the sixth-order Runge-Kutta method is employed for its solution.</p>
+
+    <p>Block <strong>Vars</strong>:</p>
+    <div class="code-block">
+       Vars:
+            err [out=true]
+            yc
+            yclim [out=true]
+            ym
+            ul
+            y [out=true]
+    </div>
+
+    <p>Block <strong>Params</strong></p>
+    <div class="code-block">
+        Params:
+            u=1 [out=true]
+            Kp=91.3
+            Kd=91.3
+            Td=0		// disturbance 
+    </div>
+
+    <p>The functions of the <i>Vars</i> and <i>Params</i> blocks were explained in <a href="nonlinear-real.html">example 1</a>.</p>
+
+
+    <p>Block <strong>TFs</strong>:</p>
+    
+    <div class="code-block">
+        TFs:
+            yc/err=Kp+Kd*s		// PD controller 
+            ym/yclim=5000/(s+1000)		// Motor coil 
+            y/ul=1/(s^2+20*s)		// Load 
+    </div>
+
+    <p>The function of the <i>TFs</i> block is explained in <a href="pendulum-dae-tf.html">examples 5</a>.</p>
+
+    <p>Block <strong>NLEs</strong>:</p>
+    <div class="code-block">
+       NLEs:
+            err=u-y		// negative feedback 
+            yclim=lim(yc, -300000, 300000)		// limiter 
+            ul=ym-Td		// Input to load (output from motor minus disturbance) 
+    </div>
+
+    <p>The function of the <i>NLEs</i> block is explained in <a href="nonlinear-complex.html">examples 2</a>.</p>
+
+    <p>The keyword <strong>end</strong> signifies the termination of the model definition</p>
+    <div class="code-block">
+        end // end of Model
+    </div>
+
+
+    <p><i>In comparing the previous and this model of the disk head positioning control system, key differences are observed related to the simulation method, parameter selection, and additional functionality.</i></p>
+    <p><i>Beyond the varying PD controller parameter values, a notable distinction lies in the numerical integration method. The first model employs the fourth-order Runge-Kutta method (RK4), which is simpler and faster to execute but less precise compared to more complex methods. Conversely, the second model utilizes the sixth-order method (RK6), offering greater accuracy in simulation, particularly for more complex or nonlinear systems.</i></p>
+    <p><i>Furthermore, the introduction of a controller output limiter in the second model is a crucial difference. This serves as protection against control signal saturation and reflects the physical limitations of real-world actuators.</i></p>
+    <p><i>The currently analyzed model represents an improved and more realistic version of the system. By employing a more precise integration method, more moderate controller values, and incorporating a control signal limiter, this model better emulates the behavior of a real physical system, enabling a safer and more stable simulation.</i></p>
+
+
+
+    <p>After successfully initiating the simulation, the results can be reviewed through several steps.</p>
+        
+    <p>As depicted in picture 4.4.1, following the simulation's execution, a window appears displaying its status. Here, you can verify whether the simulation completed without errors.</p>
+
+    <div class="figure">
+        <img src="img/z60.jpg" alt="Figure 1.1">
+        <div class="caption">Figure 4.4.1: Code execution status information</div>
+    </div>
+
+
+    <p>Figure 4.4.2 displays the window where you input the code for visualization. Here, you define which variables you want to display and how. </p>
+
+    <div class="figure">
+        <img src="img/z58.jpg" alt="Figure 1.2">
+        <div class="caption">Figure 4.4.2: Interface for entering visualization code</div>
+    </div>
+
+    <p>The visualization result is shown in figure 4.4.3. The graph features colored lines representing different physical quantities over time. The red line shows the change in the reference value over time, the green line displays the error between the reference and output values, and the purple line indicates the temporal change in the output value..</p>
+
+    <div class="figure">
+        <img src="img/z57.jpg" alt="Figure 1.3">
+        <div class="caption">Figure 4.4.3: Graphic display of simulation results</div>
+    </div>
+
+    <p>The final numerical results of the simulation are presented in picture 4.4.4 
+        This data offers detailed insight into the system's behavior and can be used for further analysis.</p>
+
+
+    <div class="figure">
+        <img src="img/z59.jpg" alt="Figure 1.4">
+        <div class="caption">Figure 4.4.4: Numerical simulation results</div>
+    </div>
+</body>
+</html>

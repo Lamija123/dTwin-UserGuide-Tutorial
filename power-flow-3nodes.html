@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Power Flow: 3 Nodes and PQ Load</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>5.1. Power Flow: 3 Nodes and PQ Load</h2>
+    <h3>Power Systems - Real</h3>
+  
+
+    <h3>Task Overview: </h3>
+    <p>This task demonstrates solving a power flow problem in a three-bus power system using a real-valued nonlinear model. 
+    Bus 1 is the slack bus with fixed voltage magnitude and phase angle, bus 2 is a zero-injection node (no power inflow or outflow), 
+    and bus 3 is a PQ load bus with specified active and reactive power consumption. The model uses known admittance values 
+    and phase angles between buses to formulate the system of nonlinear equations representing the power balance.</p>
+
+    <h3>Task objective:</h3>
+    <p>The objective is to analyze the voltage magnitudes and phase angles at buses 2 and 3 using a real-domain nonlinear 
+    mathematical model. Specifically, the goal is to solve the system of nonlinear equations representing active and reactive 
+    power balance at each bus, based on given network parameters, and determine the unknown voltage variables.</p>
+
+    <h3>Program Analysis:</h3> 
+    <p>The program is defined as a nonlinear model (<code>type=NL</code>) in the real domain (<code>domain=real</code>), 
+    with a convergence tolerance of <code>eps = 1e-6</code>.</p>
+
+    <p><strong>Variables</strong></p>
+    <ul>
+        <li><code>phi_2</code>, <code>v_2</code> – phase angle and voltage magnitude at bus 2</li>
+        <li><code>phi_3</code>, <code>v_3</code> – phase angle and voltage magnitude at bus 3</li>
+    </ul>
+
+    <p><strong>Parameters</strong></p>
+    <ul>
+        <li><code>v_1 = 1</code>, <code>phi_1 = 0</code> – known voltage magnitude and angle at the slack bus</li>
+        <li><code>aY</code>, <code>theta</code> – admittance values and their phase angles</li>
+        <li><code>P3_inj = -1</code>, <code>Q3_inj = -0.3</code> – active and reactive power injection at bus 3</li>
+    </ul>
+
+    <p><strong>Iteration Results</strong></p>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Iteration</th>
+                <th>&#949;</th>
+                <th>&#966;<sub>2</sub></th>
+                <th>v<sub>2</sub></th>
+                <th>&#966;<sub>3</sub></th>
+                <th>v<sub>3</sub></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>0</td><td>1.000000</td><td>0.000000</td><td>1.000000</td><td>0.000000</td><td>1.000000</td></tr>
+            <tr><td>1</td><td>0.042802</td><td>-0.028500</td><td>0.986000</td><td>-0.057000</td><td>0.972000</td></tr>
+            <tr><td>2</td><td>0.000201</td><td>-0.028957</td><td>0.984271</td><td>-0.058825</td><td>0.969393</td></tr>
+            <tr><td>3</td><td>0.000000</td><td>-0.028960</td><td>0.984267</td><td>-0.058834</td><td>0.969385</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>Iteration Analysis</strong></p>
+    <ul>
+        <li><strong>Iteration 0:</strong> Initial values are set. The error is 1.0, indicating the starting point.</li>
+        <li><strong>Iteration 1:</strong> Variable corrections begin. Voltage drops and negative phase angles indicate power flow from the slack bus toward loads.</li>
+        <li><strong>Iteration 2:</strong> Further refinement of variable values. The error drops to 0.000201.</li>
+        <li><strong>Iteration 3:</strong> Convergence achieved (<code>&#949; = 0</code>). Final voltage magnitudes and angles are determined.</li>
+    </ul>
+
+    <p>Negative phase angles imply that the voltages at buses 2 and 3 lag behind the reference (bus 1). Voltage drops are expected due to load consumption in the network. 
+    The solution converged in only 3 iterations, indicating a well-posed and numerically stable problem.</p>
+
+</body>
+</html>

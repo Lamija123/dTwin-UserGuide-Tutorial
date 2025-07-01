@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>State Estimation with Monte Carlo Loading</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>5.13. State estimation with Monte Carlo Loading</h2>
+
+  <h3>Task Overview: </h3>
+  <p>This task expands the WLS-based state estimation model by including random noise in both power and voltage measurements. It leverages a Monte Carlo simulation approach to evaluate the robustness of the estimator and the statistical variability of the results under sensor noise.</p>
+<h3>Task Objective: </h3>
+  <p>The aim is to simulate state estimation performance in the presence of stochastic measurement noise using multiple repetitions. This includes:</p>
+  <ul>
+    <li>Gaussian noise added to active and reactive power injection at node 3,</li>
+    <li>Gaussian noise added to voltage magnitudes at all nodes,</li>
+    <li>Statistical analysis (min, max, mean, variance, standard deviation) of estimation errors,</li>
+    <li>Repetitive simulations to capture uncertainty across many trials.</li>
+  </ul>
+
+  <h3>Program Analysis: </h3>
+  <div class="code-block">
+      	Model [type=WLS domain=real eps=1e-5 name="GNSE With Noise and Statistics"]:
+    </div>
+
+  <p><strong>Distribution Blocks</strong></p>
+  <ul>
+    <li><code>g1</code> – Gaussian noise on P₃, Q₃ with std. dev. 0.03,</li>
+    <li><code>g2</code> – Gaussian noise on v₁, v₂, v₃ with std. dev. 0.04.</li>
+  </ul>
+
+  <p><strong>Monte Carlo Repetition Scheme</strong></p>
+  <p>Each simulation step includes:</p>
+  <ol>
+    <li>Random noise generation on inputs,</li>
+    <li>WLS estimation of v₂, v₃, φ₂, φ₃,</li>
+    <li>Post-processing error computation: |P₃<sup>est</sup> − P₃<sup>real</sup>| and |Q₃<sup>est</sup> − Q₃<sup>real</sup>|,</li>
+    <li>Aggregation of statistical indicators (min, max, average, variance, std. dev).</li>
+  </ol>
+  <p>The simulation runs through nested loops with up to 20 × 10 = 200 total trials.</p>
+
+ <div class="figure">
+        <img src="img/kz6p6.png" alt="Monte Carlo simulation of voltages v2 and v3 under sensor noise"width="500" height="400">
+        <p class="caption">Figure 5.13.1: Monte Carlo simulation of voltages v2 and v3 under sensor noise</p>
+    </div>
+  <p><strong>Observations</strong></p>
+  <p>The voltage magnitudes at nodes 2 and 3 fluctuate around their nominal values (0.984 and 0.969 respectively). Despite the sensor noise, the variations remain bounded, with visibly larger spread observed at node 3 due to its higher electrical distance and sensitivity to injection variations.</p>
+
+  <h3>Conclusion: </h3>
+  <p>The Monte Carlo simulation confirms that the WLS estimator maintains stability under measurement noise, producing consistent voltage estimates. The use of statistical post-processing provides a quantitative measure of estimation uncertainty, making the model suitable for applications where sensor precision is limited.</p>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>State estimation with S-V (P-V) curve limit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>5.14. State estimation with S-V (P-V) curve limit</h2>
+
+  <h3>Task Overview: </h3>
+  <p>This task evaluates the ability of the state estimator to track the loadability limit of a power system by using synthetic measurements generated via a submodel. The test mimics a transfer capability study by gradually increasing the power demand at node 3 and applying noisy measurements into the state estimation process.</p>
+
+  <h3>Task Objective: </h3>
+  <p>The objective is to simulate the S-V (or P-V) curve using a weighted least squares (WLS) state estimation model with equality constraints, where:</p>
+  <ul>
+    <li>Sensor noise is added to voltage magnitudes and power injections,</li>
+    <li>The Zero-Injection (ZI) condition is enforced on node 2,</li>
+    <li>The estimation is repeated with incremental load increase at node 3,</li>
+    <li>Estimation fails beyond the critical point, indicating loadability limit.</li>
+  </ul>
+
+  <h3>Program Analysis: </h3>
+
+  <p>The model is composed of:</p>
+  <ol>
+    <li><strong>Submodel</strong> which generates noisy synthetic measurements based on a nonlinear PF formulation,</li>
+    <li><strong>Main WLS estimation model</strong> which uses these measurements to estimate the state under constraints.</li>
+  </ol>
+
+  <div class="code-block">
+      Model [type=WLS reInit=true eps=1e-5 maxIter=50 domain=cmplx name="SE EC With PF SubModel"]:
+    </div>
+
+
+  <p><strong>Key Elements</strong></p>
+  <ul>
+    <li>Slack node: Node 1 (fixed angle and magnitude),</li>
+    <li>PQ node: Node 3 (load increases during repeats),</li>
+    <li>ZI node: Node 2 (no net injection),</li>
+    <li>Voltage magnitude and power injection measurements are disturbed using Gaussian noise.</li>
+  </ul>
+
+<p><strong>Monte Carlo + CPF Approach</strong></p>
+<ul>
+  <li>The submodel generates a noisy snapshot of the grid based on a known power injection S<sub>3</sub>,</li>
+  <li>The main model then estimates v<sub>2</sub>, v<sub>3</sub>, and state variables from noisy measurements,</li>
+  <li>The process is repeated by increasing S<sub>3</sub> iteratively until convergence fails.</li>
+</ul>
+
+
+  
+ <div class="figure">
+        <img src="img/kz7p7.png" alt="S-V (P-V) curve for node 3 voltage magnitude" width="500" height="400">
+        <p class="caption">Figure 5.14.1: S-V (P-V) curve for node 3 voltage magnitude</p>
+    </div>
+  <p><strong>Observations</strong></p>
+  <ul>
+    <li>The curve shows a decreasing trend in \( v_3 \) as load increases, typical for P-V analysis.</li>
+    <li>At higher load levels (above approx. 5 p.u.), noise increases and convergence becomes erratic or fails.</li>
+    <li>The estimator is stable in early iterations but shows visible degradation near the limit.</li>
+  </ul>
+
+  <h3>Conclusion: </h3>
+  <p>The experiment demonstrates the integration of Monte Carlo-based noisy measurement generation and CPF-style loading in a state estimation framework. It provides a practical means of identifying system loadability limits under uncertainty. The state estimator correctly follows the S-V curve trend and signals instability as expected when approaching critical points.</p>
+
+</body>
+</html>
