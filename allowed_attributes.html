@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>dTwin Attribute Reference</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Allowed Attributes and Their Types</h2>
+
+  <h3>Enumerations</h3>
+  <p>Enumerations are fixed sets of named values used to define behavior or structure:</p>
+  <ul>
+    <li><strong>domain</strong>: <code>real</code>, <code>cmplx</code>, <code>bool</code>, <code>int</code></li>
+    <li><strong>type</strong>: <code>NL</code>, <code>L</code>, <code>DAE</code>, <code>WLS</code>, <code>DC</code>, <code>AC</code>, <code>OPF</code></li>
+    <li><strong>method</strong>: <code>NR</code>, <code>GN</code>, <code>RK4</code>, <code>FD</code>, <code>TRAP</code>, <code>INV</code></li>
+    <li><strong>signal</strong>: <code>input</code>, <code>output</code>, <code>internal</code>, <code>none</code></li>
+    <li><strong>backColor</strong>: <code>auto</code>, <code>white</code>, <code>black</code>, etc.</li>
+  </ul>
+  <p>The image below illustrates how enumeration attributes such as <code>type</code>, <code>name</code>, <code>domain</code>, <code>eps</code>, and <code>method</code> are visually represented in the dTwin environment:</p>
+<div class="figure">
+  <img src="img/enum.png" alt="Example of enumeration usage in dTwin">
+  <div class="caption">Figure 1.31: Example of model header using enumerations in dTwin</div>
+</div>
+
+
+ <h3>Real Values (float)</h3>
+<p>Floating-point attributes used for precision control, time steps, visual ranges, and mathematical operations:</p>
+<ul>
+  <li><code>eps</code>: solution precision (e.g., <code>1e-6</code>)</li>
+  <li><code>dT</code>: time step used in dynamic simulations</li>
+  <li><code>min</code>, <code>max</code>, <code>width</code>, <code>step</code>: define value ranges, graphical widths, or step sizes</li>
+  <li><code>alpha</code>, <code>beta</code>, <code>lambda</code>, <code>dev</code>, <code>mean</code>: common constants used in equations or statistical measures</li>
+  <li><code>minX</code>, <code>maxX</code>, <code>minY</code>, <code>maxY</code>: axis limits for plots</li>
+</ul>
+
+  <p>The image below demonstrates how real-valued attributes such as <code>minY</code>, <code>maxY</code>, <code>minX</code>, <code>maxX</code>, and <code>width</code> are applied within a <code>linePlot</code> block to define axis ranges and visual element properties:</p>
+<div class="figure">
+  <img src="img/plot_info.png" alt="Plot with min/max axis values and width" lenght=400 width=800>
+  <div class="caption">Figure 1:32: Use of real-valued attributes in dTwin plot styling</div>
+</div>
+
+  <h3>Integer Values (int)</h3>
+  <p>Whole number attributes often used in iterations or logic control:</p>
+  <ul>
+    <li><code>copyPars</code>: Used in logic (e.g. copy parameters from submodels)</li>
+    <li><code>maxIter</code>: Max allowed number of iterations in WLS, NR etc.</li>
+  </ul>
+
+  <h3>Boolean Values (bool)</h3>
+  <p>Logical switches that enable or disable certain features:</p>
+  <ul>
+    <li><code>out</code>, <code>conj</code>, <code>enabled</code>, <code>reInit</code>, <code>alwaysOn</code>, <code>initMain</code>, <code>legend</code>, <code>integer</code></li>
+  </ul>
+ <p>The code block below shows how the <code>reInit</code> attribute is used in dTwin for a WLS model that includes a Power Flow submodel. This ensures that the model is reinitialized at every iteration, which is necessary when dynamic components such as submodels or adaptive weights are present.</p>
+  <div class="code-block"> 
+Model [type=WLS reInit=true eps=1e-5 maxIter=50 domain=cmplx name="SE EC With PF SubModel (SE with Transfer Cap)"]:
+</div>
+<h3>String Values</h3>
+  <p>Used for labeling and naming UI elements:</p>
+  <ul>
+    <li><code>name</code>: Name of model, variable, plot, etc.</li>
+    <li><code>xLabel</code>, <code>yLabel</code>: Axis labels for plots</li>
+  </ul>
+  <p>The image below shows how <code>xLabel</code> and <code>yLabel</code> are used in a <code>linePlot</code> element to define axis titles in the dTwin plotting environment:</p>
+<div class="figure">
+  <img src="img/string_v.png" alt="xLabel and yLabel usage in dTwin">
+  <div class="caption">Figure 1.33: Example of xLabel and yLabel in dTwin plot</div>
+</div>
+
+  <h3>Colors</h3>
+  <p>Define plot colors for different UI themes:</p>
+  <ul>
+    <li><code>colorL</code>: Color in light mode</li>
+    <li><code>colorD</code>: Color in dark mode</li>
+  </ul>
+
+  <h3>Line Patterns</h3>
+  <p>Styling for line types in graphs:</p>
+  <ul>
+    <li><code>pattern</code>: <code>solid</code>, <code>dash</code>, <code>dot</code>, <code>dashdot</code></li>
+  </ul>
+
+  <p>All attributes must be used in accordance with their proper data types and within valid contexts.</p>
+
+</body>
+</html>
