@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Allowed mathematical functions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Allowed mathematical functions - examples</h2>
+
+    <h3>Real Functions</h3>
+
+        <p>The following functions are permitted in models using real numbers:???????</p>
+
+        <ul>
+            <li><strong>abs</strong></li>
+                <p>The function is used to calculate the absolute value of x.</p>
+                <p>An example of using this function is given below.</p>
+                <div class="code-block"> 
+                Model [type = NL, name = "examle abs", domain=real, eps=1e-6, method=NR]:
+
+                Vars [out=true]:
+                    y1
+                    y2
+                Params:
+                    x1=5
+                    x2=-5
+                NLEs:
+                    abs(x2)=y2
+                    abs(x1)=y1
+                end  //end of model
+                </div>
+
+                <p>The results of executing the above mentioned program are shown in the picture 1.17</p>
+                <div class="figure">
+                    <img src="img/s1.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.17: Result of executed code</div>
+                </div>
+            
+            <li><strong>acos, asin, atg</strong></li>
+                <p>Functions are used to calculate mathematical functions arccos(x), arcsin(x) and arctan(x) in radians.</p>
+                <p>An example of using this functions is given below.</p>
+                  <div class="code-block"> 
+                //Empty model
+                Model [type = NL, name = "examle arc trig fun", domain=real, eps=1e-6, method=NR]:
+                    
+                Vars [out=true]:
+                        theta1
+                        theta2
+                        theta3
+                Params:
+                            value=1
+                NLEs:
+                                theta1=acos(value)
+                                theta2=asin(value)
+                                theta3=atg(value)
+                end  //end of model
+                </div>
+
+                <p>The results of executing the above mentioned program are shown in the picture 1.18</p>
+                <div class="figure">
+                    <img src="img/s2.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.18: Result of executed code</div>
+                </div>
+
+
+                <li><strong>atg2</strong></li>
+                <p>Functions are used to calculate mathematical functions arctan(y/x), in radians y/x, considering the quadrant.</p>
+                <p>An example of using this functions is given below.</p>
+                <div class="code-block"> 
+                    //Empty model
+                    Model [type = NL, name = "examle atg fun", domain=cmplx, eps=1e-6, method=NR]:
+                        
+                    Vars [conj=false out=true]:
+                            theta1
+                    Params:
+                                value=1-1i
+                    NLEs:
+                                theta1=atg2(value)
+
+                    end  //end of model
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture1.19</p>
+                <div class="figure">
+                    <img src="img/s4.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.19: Result of executed code</div>
+                </div>
+                
+                <li><strong>cos, sin, tg</strong></li>
+                   <p>Functions are used to calculate mathematical functions cos(x), sin(x) and tan(x) in radians.</p>
+                    <p>An example of using this functions is given below.</p>
+                <div class="code-block"> 
+                //Empty model
+                Model [type = NL, name = "examle trig fun", domain=real, eps=1e-6, method=NR]:
+                    
+                Vars [out=true]:
+                        theta1
+                        theta2
+                        theta3
+                Params:
+                            value=0.5
+                NLEs:
+                                theta1=cos(value)
+                                theta2=sin(value)
+                                theta3=tg(value)
+                end  //end of model
+                </div>
+
+                <p>The results of executing the above mentioned program are shown in the picture 1.20</p>
+                <div class="figure">
+                    <img src="img/s3.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.20: Result of executed code</div>
+                </div>
+
+            <li><strong>exp, ln, log,</strong></li>
+                <p>Functions are used to calculate mathematical functions exp(x), ln(x) and log(x).</p>
+                <p>An example of using this functions is given below.</p>
+                <div class="code-block"> 
+                    //Empty model
+
+                    Model [type = NL, name = "examle log and exp fun", domain=real, eps=1e-6, method=NR]:
+                        
+                    Vars [out=true]:
+                            y1
+                            y2
+                            y3
+                    Params:
+                                value1=2
+                                value2=e*e
+                                value3=1000
+                    NLEs:
+                                    y1=exp(value1)
+                                    y2=ln(value2)
+                                    y3=log(value3)
+                    end  //end of model
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture1.21</p>
+                <div class="figure">
+                    <img src="img/s5.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.21: Result of executed code</div>
+                </div>
+
+                <li><strong>sqr, sqrt</strong></li>
+                <p>Functions are used to calculate mathematical functions x^2, &#8730;x.</p>
+                <p>An example of using this functions is given below.</p>
+                <div class="code-block"> 
+                    //Empty model
+
+                    Model [type = NL, name = "examle log and exp fun", domain=real, eps=1e-6, method=NR]:
+                        
+                    Vars [out=true]:
+                            y1
+                            y2
+                    Params:
+                                value1=4
+                                value2=9
+                                value3=1000
+                    NLEs:
+                                    y1=sqr(value1)
+                                    y2=sqrt(value2)
+                                    
+                    end  //end of model
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture1.22</p>
+                <div class="figure">
+                    <img src="img/s6.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.22: Result of executed code</div>
+                </div>
+
+                <li><strong>min, max, smin, smax, avg, var, dev</strong></li>
+                    <p>The functions <i>min</i> and <i>max</i> determine the smallest and largest value between two numbers, <i>smin</i> and <i>smax</i> 
+                        represent their smoothed (differentiable) versions, while avg calculates the mean value of a set of numbers, 
+                        and <i>var</i> and <i>dev</i> compute the variance and standard deviation of that set.</p>
+
+
+                        <div class="code-block"> 
+                        // Model demonstrating min, max, smin, smax, avg, var, dev
+
+                        Model [type = NL, name = "test_statistical_functions", domain = real, eps = 1e-6, method = NR]:
+                            
+                        Vars [out=true]:
+                                result_min
+                                result_max
+                        Params:
+                                    a = 5
+                                    b = 8
+                                    
+                        NLEs:
+                                        // Basic min/max
+                                        result_min = min(a, b)
+                                        result_max = max(a, b)
+                                        
+                        end  // end of model
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture 1.23</p>
+                <div class="figure">
+                    <img src="img/s7.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.23: Result of executed code</div>
+                </div>
+
+            <li><strong>diff, sign</strong></li>
+                <p>The diff(x) function computes the time derivative of variable x, representing how x changes 
+                    over time in dynamic models. The sign(x) function returns the sign of x: -1 if negative, 0 if zero, and 1 if positive.</p>
+
+            <li><strong>sinh, cosh, tgh</strong></li>
+            <p>Functions are used to calculate mathematical functions cosh(x), sinh(x) and tanh(x) in radians.</p>
+                    <p>An example of using this functions is given below.</p>
+                <div class="code-block"> 
+                    //Empty model
+
+                    Model [type = NL, name = "examle trig_h fun", domain=real, eps=1e-6, method=NR]:
+                        
+                    Vars [out=true]:
+                            theta1
+                            theta2
+                            theta3
+                    Params:
+                                value=1
+                    NLEs:
+                                    theta1=cosh(value)
+                                    theta2=sinh(value)
+                                    theta3=tgh(value)
+                    end  //end of model
+                </div>
+
+                <p>The results of executing the above mentioned program are shown in the picture 1.24</p>
+                <div class="figure">
+                    <img src="img/s8.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.24 Result of executed code</div>
+                </div>
+                
+                
+                
+            <li><strong>asnh, acsh, atgh</strong></li>
+                    <p>Functions are used to calculate mathematical functions arsinh(x), arcosh(x) and artanh(x) in radians.</p>
+                    <p>An example of using this functions is given below.</p>
+                <div class="code-block"> 
+                    //Empty model
+
+                    Model [type = NL, name = "examle trig fun asnh, acsh and atgh", domain=real, eps=1e-6, method=NR]:
+
+                    Vars [out=true]:
+                            theta1
+                            theta2
+                            theta3
+                    Params:
+                                value=0.5
+                    NLEs:
+                                    theta1=asnh(value)
+                                    theta2=acsh(value)
+                                    theta3=atgh(value)
+                    end  //end of model
+                </div>
+
+                <p>The results of executing the above mentioned program are shown in the picture 1.25</p>
+                <div class="figure">
+                    <img src="img/s9.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.25: Result of executed code</div>
+                </div>
+
+
+            <li><strong>int, lim, rnd, disn, disc</strong></li>
+
+                <p>The int(x) function returns the integer part of a number by truncating its decimal portion. 
+                The lim(x, a, b) function constrains the value of x within the range [a, b], returning a if x is too small and b if it's too large. 
+                The rnd(x) function rounds the number x to the nearest integer. The disn(mean, stddev) function generates a random number from a normal (Gaussian) distribution with the given mean and standard deviation. 
+                The disc(a, b) function produces a uniformly distributed random number between the values a and b.</p>
+                <p>An example of using this functions is given below.</p>
+                <div class="code-block"> 
+                    //Empty model
+
+                    Model [type = NL, name = "examle trig fun work with num", domain=real, eps=1e-6, method=NR]:
+                        
+                    Vars [out=true]:
+                            result_lim
+
+                    Params:
+                                value=0.5
+                    NLEs:
+                                    result_lim = lim(12, 0, 10) 
+                    end  //end of model
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture 1.26</p>
+                <div class="figure">
+                    <img src="img/s10.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.26: Result of executed code</div>
+                </div>
+        </ul>
+
+
+    <h3>Complex functions</h3>
+
+        <p>The following functions are supported exclusively in models that involve complex numbers:</p>
+
+        <ul>
+
+            <li><strong>conj</strong></li>
+            <p>This function returns the complex conjugate of the complex number z.</p>
+
+
+
+            <li><strong>cabs</strong></li>
+            <p>This function returns the magnitude (modulus) of the complex number z.</p>
+            <p>An example of using this functions is given below.</p>
+            <div class="code-block"> 
+                    Model [type=NL domain=cmplx name="example_cabs_fun"]:
+                        
+                    Vars [conj=false out=true]:
+                            y		// Variable name and initial value (optional) 
+                    Params:
+                                z=2+5i
+                    NLEs:
+                                    y=cabs(z)		// Second nonlinear equaiton of the model
+                    end
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture 1.27</p>
+                <div class="figure">
+                    <img src="img/s11.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.27 Result of executed code</div>
+                </div>
+
+            <li><strong>rtop</strong></li>
+            <p>This function converts a complex number z = a + bi to polar form (r, θ), where:</p>
+            <p>An example of using this functions is given below.</p>
+
+            <div class="code-block"> 
+                //Model created by xml -> modl converter
+                Model [type=NL domain=cmplx name="example_rtop_fun"]:
+                    
+                Vars [conj=false out=true]:
+                        y		// Variable name and initial value (optional) 
+                Params:
+                        z=2+5i
+                NLEs:
+                        y=rtop(z)		// Second nonlinear equaiton of the model
+                end
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture 1.28</p>
+                <div class="figure">
+                    <img src="img/s12.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.28: Result of executed code</div>
+                </div>
+
+            <li><strong>ptor</strong></li>
+
+            <p>This function converts a number from polar form (r, θ) to a complex number</p>
+            <p>An example of using this functions is given below.</p>
+
+            <div class="code-block"> 
+                //Model created by xml -> modl converter
+                Model [type=NL domain=cmplx name="example_ptor_fun"]:
+                    
+                Vars [conj=false out=true]:
+                        y		// Variable name and initial value (optional) 
+                Params:
+                        theta=0.5
+                        z=2*cos(theta) + 2i * sin(theta)
+                NLEs:
+                            y=ptor(z)		// Second nonlinear equaiton of the model
+                end
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture 1.29</p>
+                <div class="figure">
+                    <img src="img/s14.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.29: Result of executed code</div>
+                </div>
+
+                   <li><strong>imag, real</strong></li>
+            <p>The function <i>imag</i> returns the imaginary part of the complex number z = a + bi → result is b. While the function <i>real</i> returns
+             the real part of the complex number z = a + bi → result is a.</p>
+            <p>An example of using this functions is given below.</p>
+
+
+
+            <div class="code-block"> 
+                //Model created by xml -> modl converter
+                Model [type=NL domain=cmplx name="example_real_imag_fun"]:
+                Vars [conj=false out=true]:
+                        x		
+                        y
+                Params:
+                            z=2+5i
+                NLEs:
+                                x=real(z)
+                                y=imag(z)
+                end
+                </div>
+                <p>The results of executing the above mentioned program are shown in the picture 1.30</p>
+                <div class="figure">
+                    <img src="img/s15.jpg" alt="Figure 1.2">
+                    <div class="caption">Figure 1.30: Result of executed code</div>
+                </div>
+        </ul>
+
+</body>
+</html>
