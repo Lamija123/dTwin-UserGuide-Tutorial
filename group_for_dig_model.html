@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Allowed groups for digital model</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Allowed groups for digital model - explanation and examples</h2>
+
+    <p>The following groups are currently supported within the digital modeling framework:</p>
+    <ul><li><p>Modeling Groups in dTwin</p>
+        <ul>
+
+            <li><strong>Model</strong></li>
+                <p>Defines the top-level model structure, including metadata such as model name, domain, accuracy, and solver type.</p>
+            <li><strong>SubModel</strong></li>
+                <p>Allows embedding of smaller models within a larger system to support modular design.</p>
+            <li><strong>Vars</strong></li>
+                <p>Declares the state variables of the system (e.g., x, y, z). These are typically unknowns to be solved.</p>
+            <li><strong>Params</strong></li>
+                <p>Declares fixed parameters that influence the model but are not solved for (e.g., constants).</p>
+            <li><strong>Distribs</strong></li>
+                <p>Defines probability distributions used in stochastic models.</p>
+            <li><strong>Stats</strong></li>
+                <p>Calculates statistical metrics such as mean, variance, standard deviation, etc.</p>
+            <li><strong>ReInit</strong></li>
+                <p>Allows resetting or reinitialization of variables during simulation runs.</p>
+            <li><strong>PreProc</strong></li>
+                <p>Contains preprocessing logic before the main simulation starts (e.g., data scaling, input formatting).</p>
+
+
+        </ul></li>
+
+        <li><p>Equation-Based Groups</p>
+            <ul>
+
+                    <li><strong>NLEs</strong></li>
+                        <p>Nonlinear equations group – used for systems of nonlinear algebraic equations.</p>
+                    <li><strong>WLSEs</strong></li>
+                        <p>Weighted Least Squares Estimators – for state estimation problems using measurement data.</p>
+                    <li><strong>ECs</strong></li>
+                        <p>Equality constraints that enforce algebraic conditions between variables or parameters.</p>
+                    <li><strong>ODEs</strong></li>
+                        <p>	Ordinary Differential Equations – for modeling systems that evolve over time.</p>
+                    <li><strong>PDEs</strong></li>
+                        <p>Partial Differential Equations – for spatially distributed systems.</p>
+                    <li><strong>TFs</strong></li>
+                        <p>Transfer Functions – represent dynamic systems using Laplace-domain transfer functions.</p>
+        </ul></li>
+
+        <li><p>Post-Processing and Visualization</p>
+            <ul>
+
+                    <li><strong>IterPostP</strong></li>
+                        <p>Post-processing after each iteration (e.g., error computation, custom logging).</p>
+                    <li><strong>BasePostP</strong></li>
+                        <p>Base-level post-processing shared across all models or iterations.</p>
+                    <li><strong>PostProc</strong></li>
+                        <p>General post-processing logic after simulation ends.</p>
+                    <li><strong>Limits</strong></li>
+                        <p>Used to define upper and lower bounds on variables or parameters.</p>
+                    <li><strong>Repeats</strong></li>
+                        <p>Specifies how many times a simulation or part of it should be repeated (e.g., Monte Carlo runs).</p>
+                    <li><strong>Plots</strong></li>
+                        <p>Instructions for generating plots and visual representations of results.</p>
+        </ul></li>
+
+    </ul>
+
+
+    <p>Examples of how the aforementioned groups are used within a digital model can be 
+        found in the solved examples provided in the <a href="tutorial.html">tutorial</a>.</p>
+
+
+</body>
+</html>
